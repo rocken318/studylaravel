@@ -141,13 +141,7 @@ export const day0: Day = {
         },
         {
           type: "paragraph",
-          text: "変数が「値を1つ入れる箱」なら、配列は「値をいくつも並べて入れられる箱」です。買い物リストのように、複数の値を1つの名前でまとめて持てます。PHPでは配列を角かっこ「[]」で作ります(この「[]」を使う書き方を「短縮記法」と呼びます。昔は array() と書きましたが、今はほぼ [] です)。",
-        },
-        {
-          type: "code",
-          language: "php",
-          code: "<?php\n\n// ただの配列:0から始まる番号(添字)で値が並ぶ\n$fruits = [\"りんご\", \"みかん\", \"ぶどう\"];\n\necho $fruits[0]; // → りんご(番号は0から数える点に注意)\necho $fruits[1]; // → みかん",
-          caption: "番号で管理する配列。番号(添字)は1ではなく0から始まる。",
+          text: "変数が「値を1つ入れる箱」なら、配列は「値をいくつも並べて入れられる箱」です。買い物リストのように、複数の値を1つの名前でまとめて持てます。PHPでは配列を角かっこ「[]」で作ります(この「[]」を使う書き方を「短縮記法」と呼びます。昔は array() と書きましたが、今はほぼ [] です)。たとえば「$fruits = [\"りんご\", \"みかん\"];」とすると、$fruits[0] が「りんご」になります。番号(添字)が1ではなく0から始まる点に注意してください。",
         },
         {
           type: "heading",
@@ -189,7 +183,7 @@ export const day0: Day = {
         },
         {
           type: "paragraph",
-          text: "配列の要素として、さらに配列を入れることもできます。これを多次元配列と呼びます。たとえば「ユーザーの一覧(=ユーザーという連想配列が複数並んだ配列)」はまさにこの形です。DBから複数件のデータを取ってくると、たいていこの形になります。",
+          text: "配列の要素として、さらに配列を入れることもできます。これを多次元配列と呼びます。たとえば「ユーザーの一覧(=ユーザーという連想配列が複数並んだ配列)」はまさにこの形です。DBから複数件のデータを取ってくると、たいていこの形になり、foreach で1件ずつ取り出して、さらにキーで中の値にアクセスします。",
         },
         {
           type: "code",
@@ -282,12 +276,8 @@ export const day0: Day = {
           caption: "名前のない関数を変数 $greet に入れ、後から $greet(...) で呼び出す。",
         },
         {
-          type: "heading",
-          text: "アロー関数 — 短く書ける無名関数",
-        },
-        {
           type: "paragraph",
-          text: "無名関数の中でも「1つの式を返すだけ」の短いものは、アロー関数という省略記法でもっと短く書けます。「fn(引数) => 式」の形で、矢印「=>」の右の式の結果がそのまま戻り値になります(return を書きません)。",
+          text: "無名関数の中でも「1つの式を返すだけ」の短いものは、アロー関数という省略記法でもっと短く書けます。「fn(引数) => 式」の形で、矢印「=>」の右の式の結果がそのまま戻り値になります(return を書きません)。次の対比で、同じ処理が無名関数とアロー関数でどれだけ短くなるかを見てください。",
         },
         {
           type: "compare",
@@ -401,22 +391,14 @@ export const day0: Day = {
           text: "コンストラクタ __construct — 生まれた瞬間の初期設定",
         },
         {
-          type: "paragraph",
-          text: "オブジェクトを new した瞬間に自動で1回だけ呼ばれる特別なメソッドが「コンストラクタ」で、名前は必ず「__construct」(アンダースコア2つ)です。「作られたと同時に、最初の値をセットしておく」ために使います。",
-        },
-        {
           type: "code",
           language: "php",
-          code: "<?php\n\nclass User\n{\n    public $name;\n\n    // new User(\"田中\") とした瞬間に自動で呼ばれる\n    public function __construct($name)\n    {\n        $this->name = $name; // 受け取った値を自分のプロパティに保存\n    }\n}\n\n$user = new User(\"田中\"); // ここで __construct が動く\necho $user->name;          // → 田中",
-          caption: "コンストラクタは new と同時に自動実行され、初期値をセットする。",
+          code: "<?php\n\n// new した瞬間に自動で1回だけ呼ばれる特別なメソッドが「コンストラクタ」。\n// 名前は必ず __construct(アンダースコア2つ)。作られたと同時に初期値をセットする。\nclass User\n{\n    public $name;\n\n    // new User(\"田中\") とした瞬間に自動で呼ばれる\n    public function __construct($name)\n    {\n        $this->name = $name; // 受け取った値を自分のプロパティに保存\n    }\n}\n\n$user = new User(\"田中\"); // ここで __construct が動く\necho $user->name;          // → 田中",
+          caption: "コンストラクタは new と同時に自動実行され、初期値をセットする。可視性(public/private/protected)は次のセクションで扱う。",
         },
         {
           type: "heading",
           text: "可視性(public / private / protected)",
-        },
-        {
-          type: "paragraph",
-          text: "プロパティやメソッドには「どこから触れてよいか」の範囲(可視性・アクセス修飾子)を付けられます。ざっくりは次の3つです。",
         },
         {
           type: "list",
@@ -428,26 +410,12 @@ export const day0: Day = {
           ],
         },
         {
-          type: "callout",
-          variant: "why",
-          title: "なぜ private で隠すのか",
-          text: "外から勝手に中身を書き換えられると、オブジェクトの状態が壊れてバグの原因になります。「触ってよい入り口(public)」と「内部だけの仕組み(private)」を分けることで、安全に使える部品になります。これはLaravelの内部でも徹底されている考え方です。",
-        },
-        {
           type: "heading",
           text: "最大の壁:「->」と「::」の違い",
         },
         {
           type: "paragraph",
-          text: "PHP初心者が最もつまずくのがこの2つの矢印です。結論から言うと、対象が「new して作った実物(オブジェクト)」か「クラスそのもの」かで使い分けます。ここで「static(静的)」という言葉も押さえておきましょう。static を付けたメンバーや「const」で定義する定数は、実物を作らなくても「クラスそのものに属する」共有のメンバーで、new せずに「::」で使えます。",
-        },
-        {
-          type: "list",
-          ordered: false,
-          items: [
-            "「->」(アロー):new で作った実物(オブジェクト/インスタンス)のプロパティやメソッドに使う。例: $user->name、$user->hello()",
-            "「::」(ダブルコロン、スコープ解決演算子):クラスそのものに属する static メンバーや定数に使う。例: User::create()、User::MAX_AGE",
-          ],
+          text: "PHP初心者が最もつまずくのがこの2つの矢印です。結論から言うと、対象が「new して作った実物(オブジェクト)」か「クラスそのもの」かで使い分けます。「->」(アロー)は new で作った実物のプロパティやメソッドに使い(例: $user->name)、「::」(ダブルコロン、スコープ解決演算子)はクラスそのものに属する static メンバーや定数に使います(例: User::create()、User::MAX_AGE)。ここで「static(静的)」とは、実物を作らなくても「クラスそのものに属する」共有のメンバーのことで、「const」で定義する定数と同じく new せずに「::」で使えます。",
         },
         {
           type: "compare",
@@ -472,7 +440,7 @@ export const day0: Day = {
           type: "callout",
           variant: "info",
           title: "Laravelではこう出てくる",
-          text: "Laravelのコードは「->」と「::」だらけです。下の例で両方の使い分けを見てください。Route や User(モデル)のように「クラス名::」で始まるものと、$user のように「実物->」で続くものが混在します。今日の区別ができれば、この行が読めます。なお、可視性の public/private/protected は「外から触ってよいか」を決める修飾子で、Laravelでも頻出です。",
+          text: "Laravelのコードは「->」と「::」だらけです。下の例で両方の使い分けを見てください。Route や User(モデル)のように「クラス名::」で始まるものと、$user のように「実物->」で続くものが混在します。今日の区別ができれば、この行が読めます。",
         },
         {
           type: "code",
@@ -641,7 +609,7 @@ export const day0: Day = {
         },
         {
           type: "paragraph",
-          text: "レッスン1で型(string/int など)を学びました。現代のPHPでは、関数の引数や戻り値に「この型のはず」という宣言を書けます。引数名の前に型を、戻り値はかっこの後にコロン「:」を付けて書きます。こうしておくと、違う型の値が来たときに早い段階で気づけます。",
+          text: "このレッスンは仕上げの準備運動です。レッスン1で型(string/int など)を学びました。現代のPHPでは、関数の引数や戻り値に「この型のはず」という宣言を書けます。引数名の前に型を、戻り値はかっこの後にコロン「:」を付けて書きます。こうしておくと、違う型の値が来たときに早い段階で気づけます。",
         },
         {
           type: "code",
@@ -657,25 +625,17 @@ export const day0: Day = {
         },
         {
           type: "heading",
-          text: "null 許容「?」と null 合体「??」",
+          text: "null 許容「?」・null 合体「??」・nullsafe「?->」",
         },
         {
           type: "paragraph",
-          text: "レッスン1で「値が無い」を表す null を学びました。型の前にクエスチョン「?」を付けると「その型、または null のどちらでもよい」という意味(null許容)になります。また「??」(null合体演算子)は「左が null ならこっちを使う」という便利な書き方です。",
+          text: "レッスン1で「値が無い」を表す null を学びました。型の前にクエスチョン「?」を付けると「その型、または null のどちらでもよい」(null許容)になります。たとえば「?string」は「文字列 または null」。「??」(null合体演算子)は「左が null ならこっちを使う」という書き方で、たとえば「$name ?? \"ゲスト\"」は「$name が null ならゲストを使う」という意味です。さらに「?->」(nullsafe演算子)を使うと、対象が null のときはメソッドを呼ばず、まるごと null を返してくれるので、null に対して「->」を使ったときのエラーで落ちずに済みます。",
         },
         {
           type: "code",
           language: "php",
           code: "<?php\n\n// ?string = 「文字列 または null」を受け取れる\nfunction greet(?string $name): string\n{\n    // $name が null なら \"ゲスト\" を使う(?? = null合体)\n    $display = $name ?? \"ゲスト\";\n    return \"ようこそ $display さん\";\n}\n\necho greet(\"田中\"); // → ようこそ 田中 さん\necho greet(null);   // → ようこそ ゲスト さん",
           caption: "?string は「文字列かnull」。$name ?? \"ゲスト\" は「$nameがnullならゲスト」。",
-        },
-        {
-          type: "heading",
-          text: "nullsafe「?->」— null でも落ちない安全なアクセス",
-        },
-        {
-          type: "paragraph",
-          text: "オブジェクトが null かもしれないとき、いきなり「->」でメソッドを呼ぶと「null に対してメソッドを呼んだ」というエラーで止まります。そこで「?->」(nullsafe演算子)を使うと、対象が null のときはメソッドを呼ばずに、まるごと null を返してくれます。エラーで落ちずに済むのです。",
         },
         {
           type: "compare",
@@ -695,28 +655,17 @@ export const day0: Day = {
           text: "例外 — try / catch / throw",
         },
         {
-          type: "paragraph",
-          text: "処理の途中で「これは続行できない」という異常が起きたとき、PHPは「例外(れいがい)」という仕組みでそれを知らせます。「throw」で例外を投げ、「try」で囲んだ範囲で例外が起きたら「catch」がそれを受け止めて、後始末の処理を書けます。プログラム全体がいきなり止まるのを防ぎ、エラー時の対応を1か所にまとめられます。",
-        },
-        {
           type: "code",
           language: "php",
-          code: "<?php\n\nfunction divide(int $a, int $b): int\n{\n    if ($b === 0) {\n        // 異常事態を例外として投げる\n        throw new \\InvalidArgumentException(\"0では割れません\");\n    }\n    return $a / $b;\n}\n\ntry {\n    echo divide(10, 0); // ここで例外が投げられる\n} catch (\\InvalidArgumentException $e) {\n    // 投げられた例外を受け止めて対応\n    echo \"エラー: \" . $e->getMessage(); // → エラー: 0では割れません\n}",
-          caption: "throw で例外を投げ、try/catch で受け止める。$e は受け取った例外オブジェクト。",
-        },
-        {
-          type: "heading",
-          text: "interface と trait のさわり",
-        },
-        {
-          type: "paragraph",
-          text: "最後に、Laravelで多用される2つの言葉に軽く触れておきます。今は「そういうものがある」で十分です。",
+          code: "<?php\n\n// 処理の途中で「続行できない」異常が起きたら、例外(れいがい)で知らせる。\n// throw で投げ、try で囲んだ範囲の例外を catch が受け止める。\nfunction divide(int $a, int $b): int\n{\n    if ($b === 0) {\n        // 異常事態を例外として投げる\n        throw new \\InvalidArgumentException(\"0では割れません\");\n    }\n    return $a / $b;\n}\n\ntry {\n    echo divide(10, 0); // ここで例外が投げられる\n} catch (\\InvalidArgumentException $e) {\n    // 投げられた例外を受け止めて対応\n    echo \"エラー: \" . $e->getMessage(); // → エラー: 0では割れません\n}",
+          caption: "throw で例外を投げ、try/catch で受け止める。$e は受け取った例外オブジェクト。全体が止まるのを防ぎ、エラー対応を1か所にまとめられる。",
         },
         {
           type: "list",
           ordered: false,
           items: [
-            "interface(インターフェース):「このメソッドを必ず持っていること」という約束(契約)だけを定めたもの。中身は書かず、名前と形だけを決める。実装は各クラスに任せる。",
+            "interface と trait のさわり(Laravelで多用される2つの言葉。今は概要だけでOK):",
+            "interface(インターフェース):「このメソッドを必ず持っていること」という約束(契約)だけを定めたもの。中身は書かず、名前と形だけを決め、実装は各クラスに任せる。今は「そういうものがある」で十分。",
             "trait(トレイト):複数のクラスで使い回したいメソッドのまとまり。クラスに use で取り込むと、その機能を「混ぜ込む」ことができる。",
           ],
         },
@@ -730,7 +679,7 @@ export const day0: Day = {
           type: "callout",
           variant: "info",
           title: "Laravelではこう出てくる",
-          text: "Laravelのモデルは、型宣言・trait・戻り値の型が一度に出てきます。下の HasFactory は trait、: string は戻り値の型宣言です。今日の知識を総動員すると、この短いクラスがぐっと読みやすくなります。",
+          text: "Laravelのモデルは、型宣言・trait・戻り値の型が一度に出てきます。下の HasFactory は trait、: string は戻り値の型宣言、?-> と ?? もそのまま登場します。今日の知識を総動員すると、この短いクラスがぐっと読みやすくなります。",
         },
         {
           type: "code",
