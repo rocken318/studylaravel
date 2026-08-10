@@ -32,6 +32,8 @@ interface StoreState {
   quiz: Record<string, QuizResult>;
   interview: Record<string, string>;
   interviewMastered: Record<string, boolean>;
+  /** 学習した日付(YYYY-MM-DD)の一覧。ストリーク算出に使う。 */
+  studyDates: string[];
 }
 
 const emptyState: StoreState = {
@@ -39,7 +41,17 @@ const emptyState: StoreState = {
   quiz: {},
   interview: {},
   interviewMastered: {},
+  studyDates: [],
 };
+
+/** ローカルタイムの今日を YYYY-MM-DD で返す */
+function todayStr(): string {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
 
 interface ProgressContextValue extends StoreState {
   /** localStorage からの読み込みが完了したか(ハイドレーション対策) */
@@ -50,6 +62,8 @@ interface ProgressContextValue extends StoreState {
   recordSelfRating: (questionId: string, rating: "correct" | "wrong") => void;
   saveInterviewAnswer: (questionId: string, text: string) => void;
   toggleInterviewMastered: (questionId: string) => void;
+  /** 今日を学習日として記録する(重複はしない) */
+  recordActivity: () => void;
   resetAll: () => void;
 }
 
@@ -70,6 +84,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
           quiz: parsed.quiz ?? {},
           interview: parsed.interview ?? {},
           interviewMastered: parsed.interviewMastered ?? {},
+          studyDates: parsed.studyDates ?? [],
         });
       }
     } catch {
@@ -88,17 +103,33 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
     }
   }, [state, hydrated]);
 
-  const toggleLessonComplete = useCallback((lessonId: string) => {
-    setState((prev) => {
-      const next = { ...prev.completedLessons };
-      if (next[lessonId]) {
-        delete next[lessonId];
-      } else {
-        next[lessonId] = true;
-      }
-      return { ...prev, completedLessons: next };
-    });
+  // 今日を学習日として記録(重複追加しない)。他のミューテーションからも呼ぶ。
+  const stampToday = useCallback((prev: StoreState): StoreState => {
+    const today = todayStr();
+    if (prev.studyDates.includes(today)) return prev;
+    return { ...prev, studyDates: [...prev.studyDates, today] };
   }, []);
+
+  const recordActivity = useCallback(() => {
+    setState((prev) => stampToday(prev));
+  }, [stampToday]);
+
+  const toggleLessonComplete = useCallback(
+    (lessonId: string) => {
+      setState((prev) => {
+        const next = { ...prev.completedLessons };
+        let stamped = prev;
+        if (next[lessonId]) {
+          delete next[lessonId];
+        } else {
+          next[lessonId] = true;
+          stamped = stampToday(prev); // 完了にしたときだけ学習日を刻む
+        }
+        return { ...stamped, completedLessons: next };
+      });
+    },
+    [stampToday]
+  );
 
   const isLessonComplete = useCallback(
     (lessonId: string) => Boolean(state.completedLessons[lessonId]),
@@ -108,27 +139,27 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
   const recordChoice = useCallback(
     (questionId: string, selectedIndex: number, correct: boolean) => {
       setState((prev) => ({
-        ...prev,
+        ...stampToday(prev),
         quiz: {
           ...prev.quiz,
           [questionId]: { answered: true, selectedIndex, correct },
         },
       }));
     },
-    []
+    [stampToday]
   );
 
   const recordSelfRating = useCallback(
     (questionId: string, rating: "correct" | "wrong") => {
       setState((prev) => ({
-        ...prev,
+        ...stampToday(prev),
         quiz: {
           ...prev.quiz,
           [questionId]: { answered: true, selfRating: rating },
         },
       }));
     },
-    []
+    [stampToday]
   );
 
   const saveInterviewAnswer = useCallback((questionId: string, text: string) => {
@@ -164,6 +195,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       recordSelfRating,
       saveInterviewAnswer,
       toggleInterviewMastered,
+      recordActivity,
       resetAll,
     }),
     [
@@ -175,6 +207,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       recordSelfRating,
       saveInterviewAnswer,
       toggleInterviewMastered,
+      recordActivity,
       resetAll,
     ]
   );
