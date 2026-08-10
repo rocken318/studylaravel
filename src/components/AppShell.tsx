@@ -9,12 +9,12 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen">
       {/* デスクトップ: 固定サイドバー */}
-      <aside className="fixed inset-y-0 left-0 hidden w-72 border-r border-base-border bg-base-surface lg:block">
+      <aside className="fixed inset-y-0 left-0 hidden w-72 border-r border-base-border bg-base-surface lg:block print:hidden">
         <Sidebar />
       </aside>
 
       {/* モバイル: トップバー */}
-      <header className="sticky top-0 z-30 flex items-center justify-between border-b border-base-border bg-base-surface/95 px-4 py-3 backdrop-blur lg:hidden">
+      <header className="sticky top-0 z-30 flex items-center justify-between border-b border-base-border bg-base-surface/95 px-4 py-3 backdrop-blur lg:hidden print:hidden">
         <button
           onClick={() => setDrawerOpen(true)}
           aria-label="メニューを開く"
@@ -47,8 +47,8 @@ export function AppShell({ children }: { children: ReactNode }) {
       )}
 
       {/* メインコンテンツ */}
-      <main className="lg:pl-72">
-        <div className="mx-auto w-full px-5 py-8 md:px-10 md:py-12">
+      <main className="lg:pl-72 print:pl-0">
+        <div className="mx-auto w-full px-5 py-8 md:px-10 md:py-12 print:px-0 print:py-0">
           {children}
         </div>
       </main>

@@ -10,6 +10,8 @@ const navItems = [
   { href: "/interview", label: "面接想定問答集", icon: "🎤" },
   { href: "/glossary", label: "実務用語集", icon: "📘" },
   { href: "/review", label: "復習モード", icon: "🔁" },
+  { href: "/cheatsheet", label: "直前チェックリスト", icon: "📝" },
+  { href: "/settings", label: "設定・バックアップ", icon: "⚙️" },
 ];
 
 export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
