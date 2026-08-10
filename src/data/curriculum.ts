@@ -3,6 +3,7 @@
 // =====================================================================
 
 import type { Day, Lesson } from "@/types";
+import { day0 } from "./days/day0";
 import { day1 } from "./days/day1";
 import { day2 } from "./days/day2";
 import { day3 } from "./days/day3";
@@ -11,7 +12,8 @@ import { day5 } from "./days/day5";
 import { day6 } from "./days/day6";
 import { day7 } from "./days/day7";
 
-export const curriculum: Day[] = [day1, day2, day3, day4, day5, day6, day7];
+// Day 0 は「Laravelを読むための最低限PHP」。準備運動として先頭に置く。
+export const curriculum: Day[] = [day0, day1, day2, day3, day4, day5, day6, day7];
 
 /** 全レッスンをフラットに並べた配列(前へ/次へ、進捗集計に使う) */
 export interface FlatLesson {
