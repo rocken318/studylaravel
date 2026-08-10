@@ -17,6 +17,7 @@ import {
 import Link from "next/link";
 import { glossary } from "@/data/glossary";
 import { glossaryCategoryLabels } from "@/lib/labels";
+import { AskAIButton } from "./AskAIButton";
 import type { GlossaryTerm } from "@/types";
 
 const termMap = new Map<string, GlossaryTerm>(glossary.map((t) => [t.slug, t]));
@@ -96,6 +97,19 @@ export function GlossaryModalProvider({ children }: { children: ReactNode }) {
               <p className="text-sm leading-relaxed text-ink-soft">
                 {term.interviewExample}
               </p>
+            </div>
+
+            <div className="mt-4 flex justify-end">
+              <AskAIButton
+                input={{
+                  kind: "glossary",
+                  term: term.term,
+                  meaning: term.meaning,
+                }}
+                label="この用語をAIに聞く"
+                variant="ghost"
+                size="sm"
+              />
             </div>
 
             <div className="mt-4 flex items-center justify-between">

@@ -4,6 +4,8 @@ import Link from "next/link";
 import type { Day, Lesson } from "@/types";
 import { ContentRenderer } from "./ContentRenderer";
 import { QuizSection } from "./QuizBlock";
+import { ExampleBox } from "./ExampleBox";
+import { AskAIButton } from "./AskAIButton";
 import { useProgress } from "./ProgressProvider";
 import { getAdjacentLessons } from "@/data/curriculum";
 
@@ -36,7 +38,24 @@ export function LessonView({ day, lesson }: { day: Day; lesson: Lesson }) {
         <p className="mt-2 leading-relaxed text-ink-soft">{lesson.summary}</p>
       </header>
 
+      <ExampleBox lessonId={lesson.id} />
+
       <ContentRenderer blocks={lesson.blocks} />
+
+      {/* この単元をAIに深掘り */}
+      <div className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-base-border bg-base-bg p-4">
+        <p className="text-sm text-ink-soft">
+          読んでも腑に落ちない所は、AIに噛み砕いてもらいましょう。
+        </p>
+        <AskAIButton
+          input={{
+            kind: "lesson",
+            lessonTitle: lesson.title,
+            dayTitle: `Day ${day.day}・${day.title}`,
+          }}
+          label="この単元をAIに聞く"
+        />
+      </div>
 
       <QuizSection questions={lesson.questions} />
 

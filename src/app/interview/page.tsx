@@ -8,6 +8,7 @@ import {
 } from "@/lib/labels";
 import { useProgress } from "@/components/ProgressProvider";
 import { useGlossaryModal, findTerm } from "@/components/GlossaryModal";
+import { AskAIButton } from "@/components/AskAIButton";
 import type { InterviewQuestion, InterviewCategory } from "@/types";
 
 type Filter = InterviewCategory | "all";
@@ -179,7 +180,19 @@ function ListCard({ question }: { question: InterviewQuestion }) {
         </div>
       </div>
 
-      <RelatedTerms slugs={question.relatedTerms} />
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
+        <RelatedTerms slugs={question.relatedTerms} />
+        <AskAIButton
+          input={{
+            kind: "interview",
+            question: question.question,
+            category: interviewCategoryLabels[question.category],
+          }}
+          label="この質問をAIに深掘り"
+          variant="ghost"
+          size="sm"
+        />
+      </div>
 
       <div className="mt-5">
         <label className="mb-1.5 block text-xs font-semibold text-ink-faint">

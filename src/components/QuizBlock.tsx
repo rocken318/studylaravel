@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { Question, ChoiceQuestion, FreeQuestion } from "@/types";
 import { useProgress } from "./ProgressProvider";
 import { RichText } from "./RichText";
+import { AskAIButton } from "./AskAIButton";
 
 export function QuizSection({ questions }: { questions: Question[] }) {
   if (questions.length === 0) return null;
@@ -166,7 +167,7 @@ function FreeQuiz({ question }: { question: FreeQuestion }) {
               ))}
             </div>
           )}
-          <div className="flex items-center gap-2 pt-1">
+          <div className="flex flex-wrap items-center gap-2 pt-1">
             <span className="text-xs text-ink-faint">自己採点:</span>
             <button
               onClick={() => recordSelfRating(question.id, "correct")}
@@ -188,6 +189,18 @@ function FreeQuiz({ question }: { question: FreeQuestion }) {
             >
               あやしい(復習する)
             </button>
+            <span className="ml-auto">
+              <AskAIButton
+                input={{
+                  kind: "free",
+                  question: question.question,
+                  modelAnswer: question.modelAnswer,
+                }}
+                label="模範解答をAIと比べる"
+                variant="ghost"
+                size="sm"
+              />
+            </span>
           </div>
         </div>
       )}
