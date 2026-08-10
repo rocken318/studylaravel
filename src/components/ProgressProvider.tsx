@@ -65,6 +65,10 @@ interface ProgressContextValue extends StoreState {
   /** 今日を学習日として記録する(重複はしない) */
   recordActivity: () => void;
   resetAll: () => void;
+  /** 現在の学習データをJSON文字列で書き出す(バックアップ用) */
+  exportData: () => string;
+  /** バックアップJSONを読み込んで状態を復元する */
+  importData: (json: string) => { ok: boolean; error?: string };
 }
 
 const ProgressContext = createContext<ProgressContextValue | null>(null);
@@ -185,6 +189,40 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
     setState(emptyState);
   }, []);
 
+  const exportData = useCallback(() => {
+    const payload = {
+      app: "laravel-bootcamp",
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      data: state,
+    };
+    return JSON.stringify(payload, null, 2);
+  }, [state]);
+
+  const importData = useCallback(
+    (json: string): { ok: boolean; error?: string } => {
+      try {
+        const parsed = JSON.parse(json);
+        // フル形式(exportData出力)と、data直書きの両方を受け付ける
+        const d = parsed?.data ?? parsed;
+        if (!d || typeof d !== "object") {
+          return { ok: false, error: "データ形式が正しくありません。" };
+        }
+        setState({
+          completedLessons: d.completedLessons ?? {},
+          quiz: d.quiz ?? {},
+          interview: d.interview ?? {},
+          interviewMastered: d.interviewMastered ?? {},
+          studyDates: Array.isArray(d.studyDates) ? d.studyDates : [],
+        });
+        return { ok: true };
+      } catch {
+        return { ok: false, error: "JSONの読み込みに失敗しました。" };
+      }
+    },
+    []
+  );
+
   const value = useMemo<ProgressContextValue>(
     () => ({
       ...state,
@@ -197,6 +235,8 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       toggleInterviewMastered,
       recordActivity,
       resetAll,
+      exportData,
+      importData,
     }),
     [
       state,
@@ -209,6 +249,8 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       toggleInterviewMastered,
       recordActivity,
       resetAll,
+      exportData,
+      importData,
     ]
   );
 
