@@ -205,15 +205,62 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
         const parsed = JSON.parse(json);
         // フル形式(exportData出力)と、data直書きの両方を受け付ける
         const d = parsed?.data ?? parsed;
-        if (!d || typeof d !== "object") {
+        if (!d || typeof d !== "object" || Array.isArray(d)) {
           return { ok: false, error: "データ形式が正しくありません。" };
         }
+
+        // --- 各フィールドを型検証してからstateへ流し込む ---
+        // 想定外の値は該当フィールドを空にしてフォールバックする(部分的に壊れていても他は活かす)
+
+        // Record<string, boolean> を検証。値がbooleanのキーだけ採用。
+        const asBoolRecord = (v: unknown): Record<string, boolean> => {
+          if (!v || typeof v !== "object" || Array.isArray(v)) return {};
+          const out: Record<string, boolean> = {};
+          for (const [k, val] of Object.entries(v as Record<string, unknown>)) {
+            if (typeof val === "boolean") out[k] = val;
+          }
+          return out;
+        };
+
+        // Record<string, string> を検証。値がstringのキーだけ採用。
+        const asStringRecord = (v: unknown): Record<string, string> => {
+          if (!v || typeof v !== "object" || Array.isArray(v)) return {};
+          const out: Record<string, string> = {};
+          for (const [k, val] of Object.entries(v as Record<string, unknown>)) {
+            if (typeof val === "string") out[k] = val;
+          }
+          return out;
+        };
+
+        // Record<string, QuizResult> を検証。QuizResultの形をしている値だけ採用。
+        const asQuizRecord = (v: unknown): Record<string, QuizResult> => {
+          if (!v || typeof v !== "object" || Array.isArray(v)) return {};
+          const out: Record<string, QuizResult> = {};
+          for (const [k, val] of Object.entries(v as Record<string, unknown>)) {
+            if (!val || typeof val !== "object" || Array.isArray(val)) continue;
+            const r = val as Record<string, unknown>;
+            if (typeof r.answered !== "boolean") continue;
+            const entry: QuizResult = { answered: r.answered };
+            if (typeof r.selectedIndex === "number") entry.selectedIndex = r.selectedIndex;
+            if (typeof r.correct === "boolean") entry.correct = r.correct;
+            if (r.selfRating === "correct" || r.selfRating === "wrong") {
+              entry.selfRating = r.selfRating;
+            }
+            out[k] = entry;
+          }
+          return out;
+        };
+
+        // string[] を検証。文字列要素だけ採用。
+        const asStringArray = (v: unknown): string[] =>
+          Array.isArray(v) ? v.filter((x): x is string => typeof x === "string") : [];
+
         setState({
-          completedLessons: d.completedLessons ?? {},
-          quiz: d.quiz ?? {},
-          interview: d.interview ?? {},
-          interviewMastered: d.interviewMastered ?? {},
-          studyDates: Array.isArray(d.studyDates) ? d.studyDates : [],
+          completedLessons: asBoolRecord(d.completedLessons),
+          quiz: asQuizRecord(d.quiz),
+          interview: asStringRecord(d.interview),
+          interviewMastered: asBoolRecord(d.interviewMastered),
+          studyDates: asStringArray(d.studyDates),
         });
         return { ok: true };
       } catch {

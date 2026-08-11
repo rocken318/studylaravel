@@ -8,6 +8,7 @@ import { useProgress } from "./ProgressProvider";
 const navItems = [
   { href: "/", label: "ダッシュボード", icon: "🏠" },
   { href: "/interview", label: "面接想定問答集", icon: "🎤" },
+  { href: "/casestudy", label: "実例で読み解く", icon: "🔍" },
   { href: "/glossary", label: "実務用語集", icon: "📘" },
   { href: "/review", label: "復習モード", icon: "🔁" },
   { href: "/cheatsheet", label: "直前チェックリスト", icon: "📝" },

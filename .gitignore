@@ -33,3 +33,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# 内部監査レポート(halvision内部構成を含むため非公開)
+docs/audit-and-halvision-map-2026-08-11.md

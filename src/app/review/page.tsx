@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getAllQuestions } from "@/data/curriculum";
 import { useProgress } from "@/components/ProgressProvider";
 import { RichText } from "@/components/RichText";
@@ -88,8 +88,18 @@ function ReviewCard({ item }: { item: WeakItem }) {
 }
 
 function ReviewChoice({ question }: { question: ChoiceQuestion }) {
-  const { recordChoice } = useProgress();
+  const { quiz, hydrated, recordChoice } = useProgress();
+  const saved = quiz[question.id];
+  // hydrated=false の初回マウント時は quiz={} なので saved を評価できない。
+  // hydrated 後に localStorage 由来の保存値へ同期する。
   const [selected, setSelected] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    setSelected(saved?.selectedIndex ?? null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hydrated]);
+
   const answered = selected !== null;
 
   const handle = (i: number) => {
@@ -97,6 +107,24 @@ function ReviewChoice({ question }: { question: ChoiceQuestion }) {
     setSelected(i);
     recordChoice(question.id, i, i === question.answerIndex);
   };
+
+  const handleRetry = () => {
+    // ローカルの選択のみリセット。保存値は残し、選び直せば recordChoice で上書きされる。
+    setSelected(null);
+  };
+
+  if (!hydrated) {
+    return (
+      <div className="space-y-2">
+        {question.choices.map((_, i) => (
+          <div
+            key={i}
+            className="h-10 w-full animate-pulse rounded-xl border border-base-border bg-base-bg"
+          />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -139,6 +167,12 @@ function ReviewChoice({ question }: { question: ChoiceQuestion }) {
           <p className="text-sm leading-relaxed text-ink-soft">
             <RichText text={question.explanation} />
           </p>
+          <button
+            onClick={handleRetry}
+            className="mt-3 rounded-lg border border-base-border px-3 py-1.5 text-xs font-medium text-ink-soft transition-colors hover:border-brand hover:text-brand"
+          >
+            もう一度解く
+          </button>
         </div>
       )}
     </div>
@@ -146,8 +180,16 @@ function ReviewChoice({ question }: { question: ChoiceQuestion }) {
 }
 
 function ReviewFree({ question }: { question: FreeQuestion }) {
-  const { recordSelfRating } = useProgress();
+  const { quiz, hydrated, recordSelfRating } = useProgress();
+  const saved = quiz[question.id];
+  // hydrated 前は quiz={} のため saved を評価できない。hydrated 後に開閉状態を同期する。
   const [revealed, setRevealed] = useState(false);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    if (saved?.answered) setRevealed(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hydrated]);
 
   return (
     <div>

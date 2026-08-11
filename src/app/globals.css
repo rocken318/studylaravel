@@ -60,3 +60,44 @@ body {
 .animate-fade-in {
   animation: fadeIn 0.25s ease-out;
 }
+
+/* 本文へのスキップリンク: 通常は隠し、フォーカス時に表示 */
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: -3rem;
+  z-index: 100;
+  border-radius: 0.5rem;
+  background-color: theme("colors.brand.DEFAULT");
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #ffffff;
+  transition: top 0.15s ease-out;
+}
+.skip-link:focus {
+  top: 0.75rem;
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* 動きを減らす設定のユーザーにはアニメーション・スムーススクロールを無効化 */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-fade-in {
+    animation: none;
+  }
+  .skip-link {
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

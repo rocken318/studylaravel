@@ -394,14 +394,14 @@ Route::middleware(['auth'])->group(function () {
           type: "compare",
           bad: {
             label: "エスケープを外して生HTMLを出す(危険)",
-            language: "php",
+            language: "blade",
             code: `{{-- ユーザー入力をそのままHTMLとして出力 --}}
 {!! $userComment !!}
 {{-- $userComment に <script>...</script> が含まれると実行されてしまう --}}`,
           },
           good: {
             label: "既定の {{ }} で自動エスケープ(安全)",
-            language: "php",
+            language: "blade",
             code: `{{-- 文字として安全に表示される --}}
 {{ $userComment }}
 {{-- <script> は &lt;script&gt; に変換され、実行されない --}}`,
@@ -416,7 +416,7 @@ Route::middleware(['auth'])->group(function () {
         { type: "heading", text: "レイアウトの継承" },
         {
           type: "code",
-          language: "php",
+          language: "blade",
           caption: "共通レイアウトを1つ作り、各ページはそれを継承する",
           code: `{{-- resources/views/layouts/app.blade.php --}}
 <html>
@@ -441,7 +441,7 @@ Route::middleware(['auth'])->group(function () {
         { type: "heading", text: "コンポーネントによる再利用" },
         {
           type: "code",
-          language: "php",
+          language: "blade",
           caption: "繰り返し使うUIを部品化する",
           code: `{{-- resources/views/components/alert.blade.php --}}
 <div class="alert alert-{{ $type }}">
@@ -463,7 +463,7 @@ Route::middleware(['auth'])->group(function () {
           type: "compare",
           bad: {
             label: "ビューで集計・判断してしまう",
-            language: "php",
+            language: "blade",
             code: `{{-- ビュー内でDBアクセスや集計をしている --}}
 @php
     $total = \\App\\Models\\Order::where('user_id', $userId)->sum('amount');
@@ -473,7 +473,7 @@ Route::middleware(['auth'])->group(function () {
           },
           good: {
             label: "計算は事前に済ませ、ビューは表示だけ",
-            language: "php",
+            language: "blade",
             code: `{{-- コントローラ/サービスで $rank を算出済みにして渡す --}}
 <p>あなたのランク: {{ $rank }}</p>`,
           },

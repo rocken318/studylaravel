@@ -41,6 +41,7 @@ export default function SettingsPage() {
   const [importMsg, setImportMsg] = useState<string | null>(null);
   const [importOk, setImportOk] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
+  const [resetMsg, setResetMsg] = useState<string | null>(null);
 
   const stats = useMemo(() => {
     const done = allLessons.filter((f) => completedLessons[f.lesson.id]).length;
@@ -111,6 +112,12 @@ export default function SettingsPage() {
           : res.error ?? "読み込みに失敗しました。"
       );
     };
+    reader.onerror = () => {
+      setImportOk(false);
+      setImportMsg(
+        "ファイルの読み込み中にエラーが発生しました。もう一度お試しください。"
+      );
+    };
     reader.readAsText(file);
     e.target.value = "";
   };
@@ -118,12 +125,19 @@ export default function SettingsPage() {
   const handleReset = () => {
     if (!confirmReset) {
       setConfirmReset(true);
+      setResetMsg(
+        "確認のためもう一度押してください。この操作は取り消せません。"
+      );
       return;
     }
     resetAll();
     setConfirmReset(false);
-    setImportOk(true);
-    setImportMsg("すべての進捗と回答をリセットしました。");
+    setResetMsg("すべての進捗と回答をリセットしました。");
+  };
+
+  const handleCancelReset = () => {
+    setConfirmReset(false);
+    setResetMsg("リセットをキャンセルしました。");
   };
 
   return (
@@ -189,15 +203,15 @@ export default function SettingsPage() {
         >
           JSONファイルを選ぶ
         </button>
-        {importMsg && (
-          <p
-            className={`mt-3 text-sm ${
-              importOk ? "text-good" : "text-bad"
-            }`}
-          >
-            {importMsg}
-          </p>
-        )}
+        <p
+          role="status"
+          aria-live="polite"
+          className={`mt-3 text-sm ${
+            importMsg ? (importOk ? "text-good" : "text-bad") : ""
+          }`}
+        >
+          {importMsg}
+        </p>
       </section>
 
       {/* リセット */}
@@ -220,13 +234,22 @@ export default function SettingsPage() {
           </button>
           {confirmReset && (
             <button
-              onClick={() => setConfirmReset(false)}
+              onClick={handleCancelReset}
               className="rounded-lg border border-base-border px-4 py-2 text-sm text-ink-soft hover:border-brand"
             >
               やめる
             </button>
           )}
         </div>
+        <p
+          role="status"
+          aria-live="polite"
+          className={`mt-3 text-sm ${
+            resetMsg ? (confirmReset ? "text-bad" : "text-ink-soft") : ""
+          }`}
+        >
+          {resetMsg}
+        </p>
       </section>
     </div>
   );

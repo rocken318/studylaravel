@@ -31,6 +31,9 @@ export default function RootLayout({
   return (
     <html lang="ja" className={`${inter.variable} ${mono.variable}`}>
       <body>
+        <a href="#main-content" className="skip-link">
+          本文へスキップ
+        </a>
         <ProgressProvider>
           <GlossaryModalProvider>
             <AppShell>{children}</AppShell>

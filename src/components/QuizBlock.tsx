@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Question, ChoiceQuestion, FreeQuestion } from "@/types";
 import { useProgress } from "./ProgressProvider";
 import { RichText } from "./RichText";
@@ -46,11 +46,20 @@ function QuestionCard({ question, index }: { question: Question; index: number }
 }
 
 function ChoiceQuiz({ question }: { question: ChoiceQuestion }) {
-  const { quiz, recordChoice } = useProgress();
+  const { quiz, hydrated, recordChoice } = useProgress();
   const saved = quiz[question.id];
-  const [selected, setSelected] = useState<number | null>(
-    saved?.selectedIndex ?? null
-  );
+  // hydrated=false の初回マウント時は quiz={} なので saved を評価できない。
+  // hydrated 後に localStorage 由来の保存値へ同期する。
+  const [selected, setSelected] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    // 再挑戦中(ローカルで null に戻した後)に保存値で上書きしないよう、
+    // hydrated 完了時点の保存状態を一度だけ反映する。
+    setSelected(saved?.selectedIndex ?? null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hydrated]);
+
   const answered = selected !== null;
 
   const handleSelect = (i: number) => {
@@ -58,6 +67,27 @@ function ChoiceQuiz({ question }: { question: ChoiceQuestion }) {
     setSelected(i);
     recordChoice(question.id, i, i === question.answerIndex);
   };
+
+  const handleRetry = () => {
+    // ローカルの選択のみリセットして解き直し可能にする。
+    // localStorage の保存値(recordChoice の結果)はそのまま残し、
+    // 再度選択されれば recordChoice で上書きされる。
+    setSelected(null);
+  };
+
+  // hydrated 前はプレースホルダを表示して、復元前の空状態がちらつかないようにする
+  if (!hydrated) {
+    return (
+      <div className="space-y-2">
+        {question.choices.map((_, i) => (
+          <div
+            key={i}
+            className="h-11 w-full animate-pulse rounded-xl border border-base-border bg-base-bg"
+          />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -115,6 +145,12 @@ function ChoiceQuiz({ question }: { question: ChoiceQuestion }) {
           <p className="text-sm leading-relaxed text-ink-soft">
             <RichText text={question.explanation} />
           </p>
+          <button
+            onClick={handleRetry}
+            className="mt-3 rounded-lg border border-base-border px-3 py-1.5 text-xs font-medium text-ink-soft transition-colors hover:border-brand hover:text-brand"
+          >
+            もう一度解く
+          </button>
         </div>
       )}
     </div>
@@ -122,9 +158,16 @@ function ChoiceQuiz({ question }: { question: ChoiceQuestion }) {
 }
 
 function FreeQuiz({ question }: { question: FreeQuestion }) {
-  const { quiz, recordSelfRating } = useProgress();
+  const { quiz, hydrated, recordSelfRating } = useProgress();
   const saved = quiz[question.id];
-  const [revealed, setRevealed] = useState(Boolean(saved?.answered));
+  // hydrated 前は quiz={} のため saved を評価できない。hydrated 後に開閉状態を同期する。
+  const [revealed, setRevealed] = useState(false);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    if (saved?.answered) setRevealed(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hydrated]);
 
   return (
     <div>

@@ -96,7 +96,9 @@ export default function DashboardPage() {
   const [dailyIndex, setDailyIndex] = useState<number | null>(null);
   useEffect(() => {
     const d = new Date();
-    const seed = d.getFullYear() * 372 + (d.getMonth() + 1) * 31 + d.getDate();
+    // YYYYMMDD を連結した整数をシードにする(月末の桁溢れが無く日ごとに均等)
+    const seed =
+      d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
     setDailyIndex(seed % interviewQuestions.length);
   }, []);
   const daily = dailyIndex === null ? null : interviewQuestions[dailyIndex];
@@ -204,9 +206,12 @@ export default function DashboardPage() {
                 {weakQuestions.slice(0, 3).map(({ question, lesson }) => (
                   <li
                     key={question.id}
-                    className="truncate text-sm text-ink-soft"
+                    className="flex gap-1.5 text-sm leading-snug text-ink-soft"
                   >
-                    ・{lesson.title}: {question.question}
+                    <span aria-hidden className="shrink-0">・</span>
+                    <span className="line-clamp-2">
+                      {lesson.title}: {question.question}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -260,7 +265,15 @@ export default function DashboardPage() {
             </div>
           </>
         ) : (
-          <p className="text-sm text-ink-soft">読み込み中…</p>
+          // ハイドレーション前のチラつき防止用スケルトン
+          <div aria-hidden="true" className="animate-pulse">
+            <div className="mb-4 h-6 w-4/5 rounded bg-base-surface/70" />
+            <div className="mb-4 h-6 w-2/3 rounded bg-base-surface/70" />
+            <div className="flex flex-wrap gap-2">
+              <div className="h-9 w-32 rounded-lg bg-base-surface/70" />
+              <div className="h-9 w-28 rounded-lg bg-base-surface/70" />
+            </div>
+          </div>
         )}
       </section>
 

@@ -342,13 +342,17 @@ git push -u origin feature/order-service`,
         {
           type: "code",
           language: "php",
-          caption: "単体テスト — 割引計算だけを検証(部品を単独で)",
-          code: `class OrderServiceTest extends TestCase
+          caption: "単体テスト — 割引計算だけを検証(計算を専用クラスに切り出しておく)",
+          code: `// Day6ではサービス内の private メソッドだった割引計算を、
+// 単体テストしやすいよう public な専用クラス AmountCalculator に切り出す。
+// (OrderService はこの AmountCalculator を使う)
+class AmountCalculatorTest extends TestCase
 {
     public function test_プレミアム会員は10パーセント割引される(): void
     {
-        $service = new OrderService();
-        $amount  = $service->calculateAmountForTest(premium: true, price: 1000, qty: 2);
+        $calculator = new AmountCalculator();
+        // premium=true / 単価1000円 / 数量2
+        $amount = $calculator->calculate(premium: true, price: 1000, qty: 2);
 
         // 2000円の10%引きで1800円になること
         $this->assertSame(1800, $amount);
@@ -451,7 +455,7 @@ jobs:
           type: "free",
           question: "CI(継続的インテグレーション)でテストを走らせる意義を説明してください。",
           modelAnswer:
-            "CIはPRが出るたびに自動で整形チェックとテストを実行する仕組みです。人が走らせ忘れても機械が必ず確認するので、テストが失敗した状態のコードがmainにマージされるのを防げます。これにより本流を常に動く状態に保て、問題を早い段階で検知できます。レビュアーも、CIが緑であることを前提に設計の議論に集中できます。",
+            "CIはPRが出るたびに自動でテストを実行する仕組みです。最大の意義は、人が走らせ忘れても機械が必ずテストを回すため、テストが失敗した状態(壊れたコード)がmainにマージされるのを防げる点にあります。これにより本流を常に動く状態に保て、リグレッションを早い段階で検知できます。レビュアーも、CIが緑であることを前提に設計の議論に集中できます。なお、CIでは整形チェック(Pintなど)も併せて走らせることが多いですが、これは補助的な役割で、主軸はあくまでテストの自動実行による品質の担保です。",
           interviewPhrase:
             "「CIでPRごとにテストと整形を自動実行します。走らせ忘れを機械が防ぎ、壊れたコードが本流に入らないようにするためです」",
           keywords: ["PRごと", "自動実行", "マージをブロック", "本流を守る"],
@@ -593,7 +597,7 @@ php artisan db:seed`,
           ],
           answerIndex: 1,
           explanation:
-            "本番でconfig:cacheを行うと、キャッシュ後にenv()はnullを返します。config()経由なら設定ファイルで一度だけenv()を読むため、キャッシュ後も値が保たれ安全です。",
+            "本番でconfig:cacheを実行すると、Laravelは設定をまとめたキャッシュを読むだけになり、以後 .env ファイル自体が読み込まれなくなります。そのため直接 env() を呼んでも値を取得できず、デフォルト値かnullになります。一方 config() 経由なら、設定ファイルにキャッシュ済みの値(config:cache 実行時に env() で読み込んで固定された値)が使われるため、キャッシュ後も値が保たれ安全です。",
         },
         {
           id: "day7-lesson5-q3",

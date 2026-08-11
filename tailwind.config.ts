@@ -16,7 +16,7 @@ const config: Config = {
         ink: {
           DEFAULT: "#2b2b2b",
           soft: "#55524c",
-          faint: "#8a857c",
+          faint: "#6f6a61", // WCAG AA (4.5:1) を満たす濃さに調整
         },
         brand: {
           DEFAULT: "#3b4a6b", // 深い藍

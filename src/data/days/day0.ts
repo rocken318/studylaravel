@@ -66,7 +66,7 @@ export const day0: Day = {
           bad: {
             label: "連結のつもりで + を使う(PHPでは間違い)",
             language: "php",
-            code: "<?php\n$name = \"田中\";\n// PHPで文字列を + でつなごうとすると意図通りにならない\necho \"こんにちは \" + $name; // 数値扱いされ 0 などになりバグの元",
+            code: "<?php\n$name = \"田中\";\n// PHPで文字列を + でつなごうとすると意図通りにならない\necho \"こんにちは \" + $name; // PHP 8ではTypeErrorで停止(PHP 7以前は0などの意図しない値)",
           },
           good: {
             label: "「.」で連結、または \"\" 内に埋め込む(正しい)",
@@ -100,7 +100,7 @@ export const day0: Day = {
           question: "PHPで2つの文字列をつなげる(連結する)ときに使う記号はどれか。",
           choices: ["+(プラス)", ".(ドット)", "&(アンパサンド)", "->(アロー)"],
           answerIndex: 1,
-          explanation: "PHPの文字列連結はドット「.」です。「+」は数値の足し算に使われるため、文字列を「+」でつなごうとすると意図しない結果になります。ここは他言語経験者ほど間違えやすいポイントです。",
+          explanation: "PHPの文字列連結はドット「.」です。「+」は数値の足し算に使われるため、数値に変換できない文字列を「+」でつなごうとすると、PHP 8ではTypeError(Unsupported operand types)が発生して処理が止まります(PHP 7以前は0などの意図しない値になりました)。ここは他言語経験者ほど間違えやすいポイントです。",
         },
         {
           id: "day0-lesson1-q2",
@@ -113,7 +113,7 @@ export const day0: Day = {
             "echo \"こんにちは\" + $name;",
           ],
           answerIndex: 1,
-          explanation: "変数が中身に展開されるのはダブルクォート「\"」の中だけです。シングルクォート「'」では「$name」がそのまま文字として出力され、「+」はPHPでは文字列連結になりません。",
+          explanation: "変数が中身に展開されるのはダブルクォート「\"」の中だけです。シングルクォート「'」では「$name」がそのまま文字として出力されます。また「+」はPHPでは文字列連結にならず、PHP 8では文字列に対してTypeError(Unsupported operand types)が発生して処理が止まります(PHP 7以前は0などの意図しない値になりました)。",
         },
         {
           id: "day0-lesson1-q3",
@@ -200,8 +200,8 @@ export const day0: Day = {
         {
           type: "code",
           language: "php",
-          code: "<?php\n\n// Laravelの設定ファイル config/app.php の雰囲気\nreturn [\n    \"name\" => \"My App\",\n    \"env\"  => \"production\",\n    \"providers\" => [\n        \"App\\\\Providers\\\\AppServiceProvider\",\n        \"App\\\\Providers\\\\RouteServiceProvider\",\n    ],\n];",
-          caption: "Laravelの設定はまるごと連想配列。「providers」キーの値はさらに配列(多次元)。",
+          code: "<?php\n\n// Laravelの設定ファイル config/app.php の雰囲気\nreturn [\n    \"name\"     => \"My App\",\n    \"env\"      => \"production\",\n    \"timezone\" => \"Asia/Tokyo\",\n    \"locale\"   => \"ja\",\n    // 「aliases」キーの値はさらに連想配列(多次元)\n    \"aliases\" => [\n        \"Route\" => \"Illuminate\\\\Support\\\\Facades\\\\Route\",\n        \"Log\"   => \"Illuminate\\\\Support\\\\Facades\\\\Log\",\n    ],\n];",
+          caption: "Laravelの設定はまるごと連想配列。name や timezone はスカラー値、「aliases」キーの値はさらに連想配列(多次元)。",
         },
       ],
       questions: [
@@ -657,7 +657,7 @@ export const day0: Day = {
         {
           type: "code",
           language: "php",
-          code: "<?php\n\n// 処理の途中で「続行できない」異常が起きたら、例外(れいがい)で知らせる。\n// throw で投げ、try で囲んだ範囲の例外を catch が受け止める。\nfunction divide(int $a, int $b): int\n{\n    if ($b === 0) {\n        // 異常事態を例外として投げる\n        throw new \\InvalidArgumentException(\"0では割れません\");\n    }\n    return $a / $b;\n}\n\ntry {\n    echo divide(10, 0); // ここで例外が投げられる\n} catch (\\InvalidArgumentException $e) {\n    // 投げられた例外を受け止めて対応\n    echo \"エラー: \" . $e->getMessage(); // → エラー: 0では割れません\n}",
+          code: "<?php\n\n// 処理の途中で「続行できない」異常が起きたら、例外(れいがい)で知らせる。\n// throw で投げ、try で囲んだ範囲の例外を catch が受け止める。\nfunction divide(int $a, int $b): int\n{\n    if ($b === 0) {\n        // 異常事態を例外として投げる\n        throw new \\InvalidArgumentException(\"0では割れません\");\n    }\n    // intdiv は整数どうしの割り算で int を返す(/ は float を返すため型宣言と衝突する)\n    return intdiv($a, $b);\n}\n\ntry {\n    echo divide(10, 0); // ここで例外が投げられる\n} catch (\\InvalidArgumentException $e) {\n    // 投げられた例外を受け止めて対応\n    echo \"エラー: \" . $e->getMessage(); // → エラー: 0では割れません\n}",
           caption: "throw で例外を投げ、try/catch で受け止める。$e は受け取った例外オブジェクト。全体が止まるのを防ぎ、エラー対応を1か所にまとめられる。",
         },
         {

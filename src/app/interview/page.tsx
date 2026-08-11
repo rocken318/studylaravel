@@ -180,7 +180,7 @@ function ListCard({ question }: { question: InterviewQuestion }) {
         </div>
       </div>
 
-      <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
+      <div className="mt-3 flex flex-col items-start justify-between gap-2 sm:flex-row sm:items-center">
         <RelatedTerms slugs={question.relatedTerms} />
         <AskAIButton
           input={{
@@ -254,8 +254,18 @@ function FlashDeck({ questions }: { questions: InterviewQuestion[] }) {
       </div>
 
       <div
-        className="min-h-[18rem] cursor-pointer rounded-2xl border border-base-border bg-base-surface p-8 shadow-sm transition-colors hover:border-brand"
+        role="button"
+        tabIndex={0}
+        aria-expanded={revealed}
+        aria-label={revealed ? "回答を隠す" : "加点回答を表示する"}
+        className="min-h-[18rem] cursor-pointer rounded-2xl border border-base-border bg-base-surface p-8 shadow-sm transition-colors hover:border-brand focus:outline-none focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/40"
         onClick={() => setRevealed((r) => !r)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setRevealed((r) => !r);
+          }
+        }}
       >
         <span className="mb-4 inline-block rounded-full bg-brand-bg px-2.5 py-0.5 text-xs font-medium text-brand">
           {interviewCategoryLabels[q.category]}
