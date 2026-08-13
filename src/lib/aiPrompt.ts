@@ -12,7 +12,7 @@ export const aiProviderLabels: Record<AiProvider, string> = {
 
 /** プロンプト生成の入力パターン */
 export type AiPromptInput =
-  | { kind: "lesson"; lessonTitle: string; dayTitle: string }
+  | { kind: "lesson"; lessonTitle: string; dayTitle: string; preface?: string }
   | { kind: "free"; question: string; modelAnswer: string }
   | { kind: "interview"; question: string; category: string }
   | { kind: "glossary"; term: string; meaning: string };
@@ -25,13 +25,13 @@ export function buildPrompt(input: AiPromptInput): string {
   switch (input.kind) {
     case "lesson":
       return (
-        `${beginnerPreface}\n\n` +
+        `${input.preface ?? beginnerPreface}\n\n` +
         `いま「${input.dayTitle}」の中の「${input.lessonTitle}」を学んでいます。\n` +
         `この単元について、次の観点で初心者にもわかるように教えてください。\n` +
         `1) まず身近な例えで直感的に\n` +
-        `2) なぜLaravelがそう設計されているのか(理由・メリット)\n` +
+        `2) なぜそういう仕組み・設計になっているのか(理由・メリット)\n` +
         `3) ありがちな誤解・アンチパターン\n` +
-        `4) 面接で聞かれたときの、そのまま話せる言い換え例(60秒程度)\n` +
+        `4) 面接や実務で説明するときの、そのまま話せる言い換え例(60秒程度)\n` +
         `最後に、理解を確かめる質問を1つ出してください。`
       );
     case "free":
