@@ -455,9 +455,12 @@ export function RobotGame() {
         </p>
       </div>
 
-      <div className="mt-4 text-center">
-        <Link href="/vibe#kids" className="text-sm font-bold text-brand underline underline-offset-2">
-          ← 総論「もっと分かりやすく」にもどる
+      <div className="mt-5 flex flex-wrap justify-center gap-x-5 gap-y-2 border-t border-base-border pt-5 text-sm font-bold text-brand">
+        <Link href="/vibe" className="underline underline-offset-2">
+          ↑ 総論のトップへ
+        </Link>
+        <Link href="/vibe#kids" className="underline underline-offset-2">
+          解説「もっと分かりやすく」にもどる
         </Link>
       </div>
     </div>

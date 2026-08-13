@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BackToTop } from "@/components/BackToTop";
 
 export const metadata = {
   title: "バイブコーディング時代の基礎知識 — 『土台』の前に読む総論",
@@ -450,7 +451,19 @@ export default function VibePage() {
             「土台」コースを始める →
           </Link>
         </div>
+
+        {/* ページ末尾からトップへ戻る */}
+        <div className="mt-10 border-t border-base-border pt-6 text-center">
+          <a
+            href="#soron"
+            className="inline-flex items-center gap-2 rounded-full border border-base-border bg-base-surface px-6 py-3 text-sm font-bold text-brand transition-colors hover:border-brand"
+          >
+            ↑ このページの さいしょへ戻る
+          </a>
+        </div>
       </section>
+
+      <BackToTop />
     </article>
   );
 }
