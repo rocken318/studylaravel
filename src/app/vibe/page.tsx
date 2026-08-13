@@ -327,6 +327,23 @@ export default function VibePage() {
             />
           </KidCard>
 
+          {/* ゲームへの導線 */}
+          <Link
+            href="/vibe/game"
+            className="group flex items-center gap-4 rounded-2xl border-2 border-brand bg-brand p-5 text-white transition-transform hover:-translate-y-0.5"
+          >
+            <span aria-hidden className="text-3xl">🎮</span>
+            <div className="min-w-0">
+              <p className="text-xs font-bold text-white/80">スマホで あそべる</p>
+              <p className="text-lg font-bold">ロボットに めいれいゲーム</p>
+              <p className="mt-0.5 text-sm leading-relaxed text-white/85">
+                「まえ・みぎ・ひだり」を ならべて ロボットをゴールへ。
+                これが“順番に命令する”＝プログラミングの たいけん！
+              </p>
+            </div>
+            <span aria-hidden className="ml-auto shrink-0 text-2xl">→</span>
+          </Link>
+
           <KidCard emoji="✍️" title="コーディング ＝ レシピを『新人さんの言葉』に書きなおす">
             新人さん（コンピュータ）は、じつは日本語がにがて。
             <strong>その子だけが分かる特別なことば</strong>があるんだ。
