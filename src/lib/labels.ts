@@ -32,6 +32,7 @@ export const glossaryCategoryLabels: Record<GlossaryCategory, string> = {
   ai: "AI・LLM関連",
   typescript: "TypeScript型・言語",
   react: "React/Next.js",
+  basics: "共通の基礎",
 };
 
 export const glossaryCategoryOrder: GlossaryCategory[] = [
@@ -47,6 +48,9 @@ export const pythonGlossaryCategoryOrder: GlossaryCategory[] = ["python", "ai"];
 
 /** TypeScriptコースの用語集で使うカテゴリ順 */
 export const tsGlossaryCategoryOrder: GlossaryCategory[] = ["typescript", "react"];
+
+/** 基礎コースの用語集で使うカテゴリ順 */
+export const basicsGlossaryCategoryOrder: GlossaryCategory[] = ["basics"];
 
 export const calloutMeta: Record<
   CalloutVariant,

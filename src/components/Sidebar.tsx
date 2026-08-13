@@ -6,9 +6,10 @@ import type { Day } from "@/types";
 import { curriculum } from "@/data/curriculum";
 import { pythonCurriculum } from "@/data/python/curriculum";
 import { tsCurriculum } from "@/data/typescript/curriculum";
+import { basicsCurriculum } from "@/data/basics/curriculum";
 import { useProgress } from "./ProgressProvider";
 
-type CourseKey = "laravel" | "python" | "typescript";
+type CourseKey = "basics" | "laravel" | "python" | "typescript";
 
 interface Course {
   key: CourseKey;
@@ -35,6 +36,22 @@ const laravelNav = [
 ];
 
 const courses: Record<CourseKey, Course> = {
+  basics: {
+    key: "basics",
+    label: "基礎",
+    home: "/basics",
+    badge: "基",
+    title: "バイブコーディングの土台",
+    subtitle: "言語共通の基礎",
+    badgeClass: "bg-brand",
+    days: basicsCurriculum,
+    dayHref: (s) => `/basics/${s}`,
+    lessonHref: (d, l) => `/basics/${d}/${l}`,
+    nav: [
+      { href: "/basics", label: "コースホーム", icon: "🏠" },
+      { href: "/basics/glossary", label: "共通の基礎 用語集", icon: "📘" },
+    ],
+  },
   laravel: {
     key: "laravel",
     label: "Laravel",
@@ -83,6 +100,7 @@ const courses: Record<CourseKey, Course> = {
 };
 
 function activeCourseKey(pathname: string): CourseKey {
+  if (pathname.startsWith("/basics")) return "basics";
   if (pathname.startsWith("/typescript")) return "typescript";
   if (pathname.startsWith("/python")) return "python";
   return "laravel";

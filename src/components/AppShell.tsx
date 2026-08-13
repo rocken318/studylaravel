@@ -6,7 +6,9 @@ import { Sidebar } from "./Sidebar";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const course = pathname.startsWith("/typescript")
+  const course = pathname.startsWith("/basics")
+    ? { badge: "基", title: "バイブコーディングの土台", brandy: true }
+    : pathname.startsWith("/typescript")
     ? { badge: "TS", title: "初めてのTypeScript", brandy: true }
     : pathname.startsWith("/python")
     ? { badge: "Py", title: "初めてのPython", brandy: true }
