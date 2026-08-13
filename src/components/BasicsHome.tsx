@@ -35,6 +35,24 @@ export function BasicsHome() {
         </p>
       </header>
 
+      {/* この前に読む総論への導線 */}
+      <Link
+        href="/vibe"
+        className="group mb-8 flex items-center gap-4 rounded-2xl border-l-4 border-brand bg-brand-bg p-5 transition-colors hover:bg-brand-bg/70"
+      >
+        <span aria-hidden className="text-2xl">🧭</span>
+        <div className="min-w-0">
+          <p className="text-xs font-bold text-brand">まず読む・総論（非エンジニア向け）</p>
+          <p className="font-bold text-ink group-hover:text-brand">
+            バイブコーディング時代の基礎知識
+          </p>
+          <p className="mt-0.5 text-sm leading-relaxed text-ink-soft">
+            プログラミングとは何か、AIで何が変わるか。図とたとえで分かる版つき。5分で読めます。
+          </p>
+        </div>
+        <span aria-hidden className="ml-auto shrink-0 text-brand">→</span>
+      </Link>
+
       {/* 進捗 */}
       <div className="mb-8 rounded-2xl border border-base-border bg-base-surface p-5 shadow-sm">
         <div className="mb-2 flex items-center justify-between text-sm">
