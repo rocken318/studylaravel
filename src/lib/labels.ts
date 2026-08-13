@@ -33,6 +33,7 @@ export const glossaryCategoryLabels: Record<GlossaryCategory, string> = {
   typescript: "TypeScript型・言語",
   react: "React/Next.js",
   basics: "共通の基礎",
+  web: "HTML/CSS",
 };
 
 export const glossaryCategoryOrder: GlossaryCategory[] = [
@@ -51,6 +52,9 @@ export const tsGlossaryCategoryOrder: GlossaryCategory[] = ["typescript", "react
 
 /** 基礎コースの用語集で使うカテゴリ順 */
 export const basicsGlossaryCategoryOrder: GlossaryCategory[] = ["basics"];
+
+/** HTML/CSSコースの用語集で使うカテゴリ順 */
+export const webGlossaryCategoryOrder: GlossaryCategory[] = ["web"];
 
 export const calloutMeta: Record<
   CalloutVariant,

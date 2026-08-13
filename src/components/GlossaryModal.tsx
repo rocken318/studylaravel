@@ -21,16 +21,20 @@ import { glossary } from "@/data/glossary";
 import { pythonGlossary } from "@/data/python/glossary";
 import { tsGlossary } from "@/data/typescript/glossary";
 import { basicsGlossary } from "@/data/basics/glossary";
+import { webGlossary } from "@/data/web/glossary";
 import { glossaryCategoryLabels } from "@/lib/labels";
 import { AskAIButton } from "./AskAIButton";
 import type { GlossaryTerm } from "@/types";
 
 // 全コースの用語を統合(slugは全体で一意)。[[slug]] はどの用語集からも解決される。
 const termMap = new Map<string, GlossaryTerm>(
-  [...glossary, ...pythonGlossary, ...tsGlossary, ...basicsGlossary].map((t) => [
-    t.slug,
-    t,
-  ])
+  [
+    ...glossary,
+    ...pythonGlossary,
+    ...tsGlossary,
+    ...basicsGlossary,
+    ...webGlossary,
+  ].map((t) => [t.slug, t])
 );
 
 export function findTerm(slug: string): GlossaryTerm | undefined {

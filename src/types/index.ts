@@ -171,7 +171,8 @@ export type GlossaryCategory =
   | "ai" // AI・LLM関連
   | "typescript" // TypeScript型・言語
   | "react" // React/Next.js
-  | "basics"; // 言語共通の基礎
+  | "basics" // 言語共通の基礎
+  | "web"; // HTML/CSS
 
 export interface GlossaryTerm {
   /** [[term-slug]] で参照されるキー。例: "n-plus-one" */
