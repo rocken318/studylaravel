@@ -24,7 +24,7 @@ export const pythonDay0: Day = {
         { type: "compare", bad: { label: "別の言語(例)", text: "記号や決まり文句が多く、最初の一歩で覚えることが多い", code: "public class Main {\n  public static void main(String[] args) {\n    System.out.println(\"Hello\");\n  }\n}", language: "java" }, good: { label: "Python", text: "画面に文字を出すだけなら、これだけで済む", code: "print(\"Hello\")", language: "python" } },
         { type: "paragraph", text: "上の比較で、Pythonがいかに「余計な飾り」が少ないかがわかります。やりたいことに近い形で書けるので、初学者が本質に集中しやすいのです。" },
         { type: "callout", variant: "why", title: "なぜ共通語だと得なのか", text: "多くの人が使う言語ほど、教材・質問サイト・AIの学習データが充実します。あなたが詰まる場面は、たいてい過去に誰かが詰まって解決済み。その蓄積に乗れるのがPythonの強みです。" },
-        { type: "paragraph", text: "AI時代の学び方は「全部を暗記する」ではありません。骨組みを理解し、細部はAIや検索に任せ、出てきた答えを [[読める]]・直せる・説明できる状態を目指します。Pythonはその練習に最適な言語です。" },
+        { type: "paragraph", text: "AI時代の学び方は「全部を暗記する」ではありません。骨組みを理解し、細部はAIや検索に任せ、出てきた答えを 読める・直せる・説明できる状態を目指します。Pythonはその練習に最適な言語です。" },
         { type: "callout", variant: "info", title: "AIにはこう聞く", text: "「プログラミング初心者です。PythonがAIやデータ分析でよく使われる理由を、専門用語を使わずに3つ挙げて」と聞くと、今の自分のレベルに合った説明が返ってきます。" },
         { type: "callout", variant: "warn", title: "落とし穴", text: "「どの言語が最強か」という議論に時間を使いすぎないこと。目的(AI・自動化・データ)が決まっているなら、まずPythonで動かして手を動かすほうが何倍も学べます。" }
       ],

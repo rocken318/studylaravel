@@ -166,7 +166,9 @@ export type GlossaryCategory =
   | "database" // DB
   | "performance" // 性能
   | "team" // チーム開発
-  | "laravel"; // Laravel機能
+  | "laravel" // Laravel機能
+  | "python" // Python文法・基礎
+  | "ai"; // AI・LLM関連
 
 export interface GlossaryTerm {
   /** [[term-slug]] で参照されるキー。例: "n-plus-one" */

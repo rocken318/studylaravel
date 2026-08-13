@@ -18,11 +18,15 @@ import {
 } from "react";
 import Link from "next/link";
 import { glossary } from "@/data/glossary";
+import { pythonGlossary } from "@/data/python/glossary";
 import { glossaryCategoryLabels } from "@/lib/labels";
 import { AskAIButton } from "./AskAIButton";
 import type { GlossaryTerm } from "@/types";
 
-const termMap = new Map<string, GlossaryTerm>(glossary.map((t) => [t.slug, t]));
+// Laravel と Python の用語を統合(slugは全体で一意)。[[slug]] はどちらからも解決される。
+const termMap = new Map<string, GlossaryTerm>(
+  [...glossary, ...pythonGlossary].map((t) => [t.slug, t])
+);
 
 export function findTerm(slug: string): GlossaryTerm | undefined {
   return termMap.get(slug);

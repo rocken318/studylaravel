@@ -28,6 +28,8 @@ export const glossaryCategoryLabels: Record<GlossaryCategory, string> = {
   performance: "性能",
   team: "チーム開発",
   laravel: "Laravel機能",
+  python: "Python文法・基礎",
+  ai: "AI・LLM関連",
 };
 
 export const glossaryCategoryOrder: GlossaryCategory[] = [
@@ -37,6 +39,9 @@ export const glossaryCategoryOrder: GlossaryCategory[] = [
   "performance",
   "team",
 ];
+
+/** Pythonコースの用語集で使うカテゴリ順 */
+export const pythonGlossaryCategoryOrder: GlossaryCategory[] = ["python", "ai"];
 
 export const calloutMeta: Record<
   CalloutVariant,

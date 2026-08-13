@@ -13,7 +13,7 @@ export const pythonDay6: Day = {
       summary: "プロンプト(入力)と応答(出力)、トークンと料金の基本を、実務の視点でつかむ。",
       blocks: [
         { type: "heading", text: "LLMは「文章を入れると文章が返る関数」" },
-        { type: "paragraph", text: "LLM(Large Language Model、大規模言語モデル。大量の文章で学習したAI)は、むずかしく考えると迷子になります。まずは「文章を入れると文章が返ってくる、巨大な関数」だと思ってください。あなたが入れる文章を[[プロンプト]](prompt、指示や質問のこと)、返ってくる文章を応答(response)と呼びます。" },
+        { type: "paragraph", text: "LLM(Large Language Model、大規模言語モデル。大量の文章で学習したAI)は、むずかしく考えると迷子になります。まずは「文章を入れると文章が返ってくる、巨大な関数」だと思ってください。あなたが入れる文章をプロンプト(prompt、指示や質問のこと)、返ってくる文章を応答(response)と呼びます。" },
         { type: "paragraph", text: "API(Application Programming Interface、プログラムから他のサービスを呼び出す窓口)を使うと、この「関数」をPythonのコードから呼べます。つまり、ChatGPTのような画面を人が操作する代わりに、あなたのプログラムがAIに話しかけて答えを受け取れる、ということです。" },
         {
           type: "code",
@@ -229,7 +229,7 @@ export const pythonDay6: Day = {
           }
         },
         { type: "heading", text: "結果を鵜呑みにしない: 検算" },
-        { type: "paragraph", text: "AIの要約は自然に読めますが、たまに元の文章にない内容を混ぜることがあります。これを[[ハルシネーション]](hallucination、AIがもっともらしい嘘を生成する現象)と呼びます。だから、要約に出てきた数字や固有名詞が本当に元の文章にあるかを確かめる『検算』の習慣が大切です。" },
+        { type: "paragraph", text: "AIの要約は自然に読めますが、たまに元の文章にない内容を混ぜることがあります。これをハルシネーション(hallucination、AIがもっともらしい嘘を生成する現象)と呼びます。だから、要約に出てきた数字や固有名詞が本当に元の文章にあるかを確かめる『検算』の習慣が大切です。" },
         {
           type: "list",
           ordered: false,

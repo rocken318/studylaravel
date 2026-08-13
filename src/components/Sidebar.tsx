@@ -121,20 +121,28 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
 
         {isPython && (
           <ul className="mb-4 space-y-0.5">
-            <li>
-              <Link
-                href="/python"
-                onClick={onNavigate}
-                className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors ${
-                  pathname === "/python"
-                    ? "bg-brand text-white"
-                    : "text-ink-soft hover:bg-base-bg"
-                }`}
-              >
-                <span aria-hidden>🏠</span>
-                コースホーム
-              </Link>
-            </li>
+            {[
+              { href: "/python", label: "コースホーム", icon: "🏠" },
+              { href: "/python/glossary", label: "Python・AI用語集", icon: "📘" },
+            ].map((item) => {
+              const active = pathname === item.href;
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    onClick={onNavigate}
+                    className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors ${
+                      active
+                        ? "bg-brand text-white"
+                        : "text-ink-soft hover:bg-base-bg"
+                    }`}
+                  >
+                    <span aria-hidden>{item.icon}</span>
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         )}
 
