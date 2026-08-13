@@ -2,11 +2,29 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { Day } from "@/types";
 import { curriculum } from "@/data/curriculum";
 import { pythonCurriculum } from "@/data/python/curriculum";
+import { tsCurriculum } from "@/data/typescript/curriculum";
 import { useProgress } from "./ProgressProvider";
 
-const navItems = [
+type CourseKey = "laravel" | "python" | "typescript";
+
+interface Course {
+  key: CourseKey;
+  label: string; // 切替ピルの表示
+  home: string; // コースのトップ
+  badge: string; // ロゴの短縮
+  title: string;
+  subtitle: string;
+  badgeClass: string;
+  days: Day[];
+  dayHref: (slug: string) => string;
+  lessonHref: (daySlug: string, lessonSlug: string) => string;
+  nav: { href: string; label: string; icon: string }[];
+}
+
+const laravelNav = [
   { href: "/", label: "ダッシュボード", icon: "🏠" },
   { href: "/interview", label: "面接想定問答集", icon: "🎤" },
   { href: "/casestudy", label: "実例で読み解く", icon: "🔍" },
@@ -16,35 +34,90 @@ const navItems = [
   { href: "/settings", label: "設定・バックアップ", icon: "⚙️" },
 ];
 
+const courses: Record<CourseKey, Course> = {
+  laravel: {
+    key: "laravel",
+    label: "Laravel",
+    home: "/",
+    badge: "L",
+    title: "Laravel Bootcamp",
+    subtitle: "7日間 面接対策",
+    badgeClass: "bg-accent",
+    days: curriculum,
+    dayHref: (s) => `/curriculum/${s}`,
+    lessonHref: (d, l) => `/curriculum/${d}/${l}`,
+    nav: laravelNav,
+  },
+  python: {
+    key: "python",
+    label: "Python",
+    home: "/python",
+    badge: "Py",
+    title: "初めてのPython",
+    subtitle: "AI時代の第一歩",
+    badgeClass: "bg-brand",
+    days: pythonCurriculum,
+    dayHref: (s) => `/python/${s}`,
+    lessonHref: (d, l) => `/python/${d}/${l}`,
+    nav: [
+      { href: "/python", label: "コースホーム", icon: "🏠" },
+      { href: "/python/glossary", label: "Python・AI用語集", icon: "📘" },
+    ],
+  },
+  typescript: {
+    key: "typescript",
+    label: "TypeScript",
+    home: "/typescript",
+    badge: "TS",
+    title: "初めてのTypeScript",
+    subtitle: "AIプロダクトを作る",
+    badgeClass: "bg-brand",
+    days: tsCurriculum,
+    dayHref: (s) => `/typescript/${s}`,
+    lessonHref: (d, l) => `/typescript/${d}/${l}`,
+    nav: [
+      { href: "/typescript", label: "コースホーム", icon: "🏠" },
+      { href: "/typescript/glossary", label: "TS・React用語集", icon: "📘" },
+    ],
+  },
+};
+
+function activeCourseKey(pathname: string): CourseKey {
+  if (pathname.startsWith("/typescript")) return "typescript";
+  if (pathname.startsWith("/python")) return "python";
+  return "laravel";
+}
+
 function CourseSwitcher({
-  isPython,
+  activeKey,
   onNavigate,
 }: {
-  isPython: boolean;
+  activeKey: CourseKey;
   onNavigate?: () => void;
 }) {
   const base =
-    "flex-1 rounded-lg px-2.5 py-1.5 text-center text-xs font-bold transition-colors";
+    "flex-1 rounded-lg px-2 py-1.5 text-center text-xs font-bold transition-colors";
   return (
-    <div className="flex gap-1.5 rounded-xl bg-base-bg p-1">
-      <Link
-        href="/"
-        onClick={onNavigate}
-        className={`${base} ${
-          !isPython ? "bg-accent text-white" : "text-ink-soft hover:text-ink"
-        }`}
-      >
-        Laravel
-      </Link>
-      <Link
-        href="/python"
-        onClick={onNavigate}
-        className={`${base} ${
-          isPython ? "bg-brand text-white" : "text-ink-soft hover:text-ink"
-        }`}
-      >
-        Python
-      </Link>
+    <div className="flex gap-1 rounded-xl bg-base-bg p-1">
+      {(Object.values(courses) as Course[]).map((c) => {
+        const active = c.key === activeKey;
+        return (
+          <Link
+            key={c.key}
+            href={c.home}
+            onClick={onNavigate}
+            className={`${base} ${
+              active
+                ? c.key === "laravel"
+                  ? "bg-accent text-white"
+                  : "bg-brand text-white"
+                : "text-ink-soft hover:text-ink"
+            }`}
+          >
+            {c.label}
+          </Link>
+        );
+      })}
     </div>
   );
 }
@@ -52,110 +125,68 @@ function CourseSwitcher({
 export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
   const { isLessonComplete, hydrated } = useProgress();
-  const isPython = pathname.startsWith("/python");
-
-  const days = isPython ? pythonCurriculum : curriculum;
-  const dayHref = (slug: string) =>
-    isPython ? `/python/${slug}` : `/curriculum/${slug}`;
-  const lessonHref = (daySlug: string, lessonSlug: string) =>
-    isPython
-      ? `/python/${daySlug}/${lessonSlug}`
-      : `/curriculum/${daySlug}/${lessonSlug}`;
+  const key = activeCourseKey(pathname);
+  const course = courses[key];
 
   return (
     <div className="flex h-full flex-col">
       <div className="border-b border-base-border px-5 py-5">
         <Link
-          href={isPython ? "/python" : "/"}
+          href={course.home}
           onClick={onNavigate}
           className="flex items-center gap-2"
         >
           <span
-            className={`flex h-9 w-9 items-center justify-center rounded-lg text-lg font-bold text-white ${
-              isPython ? "bg-brand" : "bg-accent"
-            }`}
+            className={`flex h-9 w-9 items-center justify-center rounded-lg text-sm font-bold text-white ${course.badgeClass}`}
           >
-            {isPython ? "Py" : "L"}
+            {course.badge}
           </span>
           <div className="leading-tight">
-            <p className="text-sm font-bold text-ink">
-              {isPython ? "初めてのPython" : "Laravel Bootcamp"}
-            </p>
-            <p className="text-xs text-ink-faint">
-              {isPython ? "AI時代の第一歩" : "7日間 面接対策"}
-            </p>
+            <p className="text-sm font-bold text-ink">{course.title}</p>
+            <p className="text-xs text-ink-faint">{course.subtitle}</p>
           </div>
         </Link>
         <div className="mt-4">
-          <CourseSwitcher isPython={isPython} onNavigate={onNavigate} />
+          <CourseSwitcher activeKey={key} onNavigate={onNavigate} />
         </div>
       </div>
 
       <nav className="thin-scroll flex-1 overflow-y-auto px-3 py-4">
-        {!isPython && (
-          <ul className="mb-4 space-y-0.5">
-            {navItems.map((item) => {
-              const active =
-                item.href === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(item.href);
-              return (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    onClick={onNavigate}
-                    className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors ${
-                      active
-                        ? "bg-brand text-white"
-                        : "text-ink-soft hover:bg-base-bg"
-                    }`}
-                  >
-                    <span aria-hidden>{item.icon}</span>
-                    {item.label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-
-        {isPython && (
-          <ul className="mb-4 space-y-0.5">
-            {[
-              { href: "/python", label: "コースホーム", icon: "🏠" },
-              { href: "/python/glossary", label: "Python・AI用語集", icon: "📘" },
-            ].map((item) => {
-              const active = pathname === item.href;
-              return (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    onClick={onNavigate}
-                    className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors ${
-                      active
-                        ? "bg-brand text-white"
-                        : "text-ink-soft hover:bg-base-bg"
-                    }`}
-                  >
-                    <span aria-hidden>{item.icon}</span>
-                    {item.label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        )}
+        <ul className="mb-4 space-y-0.5">
+          {course.nav.map((item) => {
+            const active =
+              item.href === "/" || item.href === course.home
+                ? pathname === item.href
+                : pathname.startsWith(item.href);
+            return (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  onClick={onNavigate}
+                  className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors ${
+                    active
+                      ? "bg-brand text-white"
+                      : "text-ink-soft hover:bg-base-bg"
+                  }`}
+                >
+                  <span aria-hidden>{item.icon}</span>
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
 
         <p className="px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wide text-ink-faint">
           カリキュラム
         </p>
         <ul className="space-y-3">
-          {days.map((day) => {
-            const dayActive = pathname.includes(dayHref(day.slug));
+          {course.days.map((day) => {
+            const dayActive = pathname.includes(course.dayHref(day.slug));
             return (
               <li key={day.slug}>
                 <Link
-                  href={dayHref(day.slug)}
+                  href={course.dayHref(day.slug)}
                   onClick={onNavigate}
                   className={`block rounded-lg px-3 py-1.5 text-sm font-semibold transition-colors ${
                     dayActive ? "text-brand" : "text-ink hover:text-brand"
@@ -168,7 +199,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
                 </Link>
                 <ul className="mt-0.5 space-y-0.5 border-l border-base-border pl-3">
                   {day.lessons.map((lesson) => {
-                    const href = lessonHref(day.slug, lesson.slug);
+                    const href = course.lessonHref(day.slug, lesson.slug);
                     const active = pathname === href;
                     const done = hydrated && isLessonComplete(lesson.id);
                     return (

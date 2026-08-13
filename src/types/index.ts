@@ -168,7 +168,9 @@ export type GlossaryCategory =
   | "team" // チーム開発
   | "laravel" // Laravel機能
   | "python" // Python文法・基礎
-  | "ai"; // AI・LLM関連
+  | "ai" // AI・LLM関連
+  | "typescript" // TypeScript型・言語
+  | "react"; // React/Next.js
 
 export interface GlossaryTerm {
   /** [[term-slug]] で参照されるキー。例: "n-plus-one" */

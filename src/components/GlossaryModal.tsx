@@ -19,13 +19,14 @@ import {
 import Link from "next/link";
 import { glossary } from "@/data/glossary";
 import { pythonGlossary } from "@/data/python/glossary";
+import { tsGlossary } from "@/data/typescript/glossary";
 import { glossaryCategoryLabels } from "@/lib/labels";
 import { AskAIButton } from "./AskAIButton";
 import type { GlossaryTerm } from "@/types";
 
-// Laravel と Python の用語を統合(slugは全体で一意)。[[slug]] はどちらからも解決される。
+// Laravel / Python / TypeScript の用語を統合(slugは全体で一意)。[[slug]] はどの用語集からも解決される。
 const termMap = new Map<string, GlossaryTerm>(
-  [...glossary, ...pythonGlossary].map((t) => [t.slug, t])
+  [...glossary, ...pythonGlossary, ...tsGlossary].map((t) => [t.slug, t])
 );
 
 export function findTerm(slug: string): GlossaryTerm | undefined {

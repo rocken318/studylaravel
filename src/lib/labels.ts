@@ -30,6 +30,8 @@ export const glossaryCategoryLabels: Record<GlossaryCategory, string> = {
   laravel: "Laravel機能",
   python: "Python文法・基礎",
   ai: "AI・LLM関連",
+  typescript: "TypeScript型・言語",
+  react: "React/Next.js",
 };
 
 export const glossaryCategoryOrder: GlossaryCategory[] = [
@@ -42,6 +44,9 @@ export const glossaryCategoryOrder: GlossaryCategory[] = [
 
 /** Pythonコースの用語集で使うカテゴリ順 */
 export const pythonGlossaryCategoryOrder: GlossaryCategory[] = ["python", "ai"];
+
+/** TypeScriptコースの用語集で使うカテゴリ順 */
+export const tsGlossaryCategoryOrder: GlossaryCategory[] = ["typescript", "react"];
 
 export const calloutMeta: Record<
   CalloutVariant,

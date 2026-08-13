@@ -6,7 +6,11 @@ import { Sidebar } from "./Sidebar";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const isPython = pathname.startsWith("/python");
+  const course = pathname.startsWith("/typescript")
+    ? { badge: "TS", title: "初めてのTypeScript", brandy: true }
+    : pathname.startsWith("/python")
+    ? { badge: "Py", title: "初めてのPython", brandy: true }
+    : { badge: "L", title: "Laravel Bootcamp", brandy: false };
   const [drawerOpen, setDrawerOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
   const openButtonRef = useRef<HTMLButtonElement>(null);
@@ -82,12 +86,12 @@ export function AppShell({ children }: { children: ReactNode }) {
         <span className="flex items-center gap-2 text-sm font-bold text-ink">
           <span
             className={`flex h-6 w-6 items-center justify-center rounded text-xs text-white ${
-              isPython ? "bg-brand" : "bg-accent"
+              course.brandy ? "bg-brand" : "bg-accent"
             }`}
           >
-            {isPython ? "Py" : "L"}
+            {course.badge}
           </span>
-          {isPython ? "初めてのPython" : "Laravel Bootcamp"}
+          {course.title}
         </span>
         <span className="w-8" />
       </header>
