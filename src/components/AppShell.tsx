@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import { Sidebar } from "./Sidebar";
 
 export function AppShell({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+  const isPython = pathname.startsWith("/python");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
   const openButtonRef = useRef<HTMLButtonElement>(null);
@@ -77,10 +80,14 @@ export function AppShell({ children }: { children: ReactNode }) {
           </svg>
         </button>
         <span className="flex items-center gap-2 text-sm font-bold text-ink">
-          <span className="flex h-6 w-6 items-center justify-center rounded bg-accent text-xs text-white">
-            L
+          <span
+            className={`flex h-6 w-6 items-center justify-center rounded text-xs text-white ${
+              isPython ? "bg-brand" : "bg-accent"
+            }`}
+          >
+            {isPython ? "Py" : "L"}
           </span>
-          Laravel Bootcamp
+          {isPython ? "初めてのPython" : "Laravel Bootcamp"}
         </span>
         <span className="w-8" />
       </header>
