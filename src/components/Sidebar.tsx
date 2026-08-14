@@ -59,6 +59,7 @@ const courses: Record<CourseKey, Course> = {
     lessonHref: (d, l) => `/basics/${d}/${l}`,
     nav: [
       { href: "/vibe", label: "総論: 時代の基礎知識", icon: "🧭" },
+      { href: "/languages", label: "コラム: 言語ずかん", icon: "📚" },
       { href: "/basics", label: "コースホーム", icon: "🏠" },
       { href: "/basics/glossary", label: "共通の基礎 用語集", icon: "📘" },
     ],
@@ -162,6 +163,7 @@ const courses: Record<CourseKey, Course> = {
 function activeCourseKey(pathname: string): CourseKey {
   if (pathname.startsWith("/basics")) return "basics";
   if (pathname.startsWith("/vibe")) return "basics";
+  if (pathname.startsWith("/languages")) return "basics";
   if (pathname.startsWith("/typescript")) return "typescript";
   if (pathname.startsWith("/python")) return "python";
   if (pathname.startsWith("/web")) return "web";
