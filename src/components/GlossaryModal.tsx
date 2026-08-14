@@ -24,6 +24,7 @@ import { basicsGlossary } from "@/data/basics/glossary";
 import { webGlossary } from "@/data/web/glossary";
 import { jsGlossary } from "@/data/javascript/glossary";
 import { reactGlossary } from "@/data/react/glossary";
+import { gitGlossary } from "@/data/git/glossary";
 import { glossaryCategoryLabels } from "@/lib/labels";
 import { AskAIButton } from "./AskAIButton";
 import type { GlossaryTerm } from "@/types";
@@ -38,6 +39,7 @@ const termMap = new Map<string, GlossaryTerm>(
     ...webGlossary,
     ...jsGlossary,
     ...reactGlossary,
+    ...gitGlossary,
   ].map((t) => [t.slug, t])
 );
 

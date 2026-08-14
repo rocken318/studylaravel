@@ -35,6 +35,7 @@ export const glossaryCategoryLabels: Record<GlossaryCategory, string> = {
   basics: "共通の基礎",
   web: "HTML/CSS",
   javascript: "JavaScript",
+  git: "Git・バージョン管理",
 };
 
 export const glossaryCategoryOrder: GlossaryCategory[] = [
@@ -62,6 +63,9 @@ export const jsGlossaryCategoryOrder: GlossaryCategory[] = ["javascript"];
 
 /** Reactコースの用語集で使うカテゴリ順 */
 export const reactGlossaryCategoryOrder: GlossaryCategory[] = ["react"];
+
+/** Gitコースの用語集で使うカテゴリ順 */
+export const gitGlossaryCategoryOrder: GlossaryCategory[] = ["git"];
 
 export const calloutMeta: Record<
   CalloutVariant,
