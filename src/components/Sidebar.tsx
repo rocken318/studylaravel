@@ -188,6 +188,12 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
         <div className="mt-4">
           <CourseSwitcher activeKey={key} onNavigate={onNavigate} />
         </div>
+        <a
+          href="https://halvision.dev/ja/learn"
+          className="mt-3 flex items-center gap-1.5 text-xs font-semibold text-ink-faint transition-colors hover:text-brand"
+        >
+          ← 学習メディアトップ
+        </a>
       </div>
 
       <nav className="thin-scroll flex-1 overflow-y-auto px-3 py-4">

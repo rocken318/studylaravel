@@ -118,6 +118,12 @@ export default function VibePage() {
     <article className="mx-auto max-w-reading">
       {/* ── Hero ── */}
       <header id="soron" className="mb-10 scroll-mt-20">
+        <a
+          href="https://halvision.dev/ja/learn"
+          className="mb-4 inline-flex items-center gap-1.5 text-xs font-semibold text-ink-faint transition-colors hover:text-brand"
+        >
+          ← 学習メディアトップ
+        </a>
         <Kicker>『バイブコーディングの土台』の前に読む・総論</Kicker>
         <h1 className="text-3xl font-bold leading-tight text-ink md:text-4xl">
           バイブコーディング時代の
