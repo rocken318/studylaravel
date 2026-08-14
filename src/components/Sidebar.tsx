@@ -9,6 +9,7 @@ import { tsCurriculum } from "@/data/typescript/curriculum";
 import { basicsCurriculum } from "@/data/basics/curriculum";
 import { webCurriculum } from "@/data/web/curriculum";
 import { jsCurriculum } from "@/data/javascript/curriculum";
+import { reactCurriculum } from "@/data/react/curriculum";
 import { useProgress } from "./ProgressProvider";
 
 type CourseKey =
@@ -17,7 +18,8 @@ type CourseKey =
   | "python"
   | "typescript"
   | "web"
-  | "javascript";
+  | "javascript"
+  | "react";
 
 interface Course {
   key: CourseKey;
@@ -139,6 +141,22 @@ const courses: Record<CourseKey, Course> = {
       { href: "/javascript/glossary", label: "JavaScript用語集", icon: "📘" },
     ],
   },
+  react: {
+    key: "react",
+    label: "React",
+    home: "/react",
+    badge: "R",
+    title: "初めてのReact",
+    subtitle: "UIを組み立てる",
+    badgeClass: "bg-brand",
+    days: reactCurriculum,
+    dayHref: (s) => `/react/${s}`,
+    lessonHref: (d, l) => `/react/${d}/${l}`,
+    nav: [
+      { href: "/react", label: "コースホーム", icon: "🏠" },
+      { href: "/react/glossary", label: "React用語集", icon: "📘" },
+    ],
+  },
 };
 
 function activeCourseKey(pathname: string): CourseKey {
@@ -148,6 +166,7 @@ function activeCourseKey(pathname: string): CourseKey {
   if (pathname.startsWith("/python")) return "python";
   if (pathname.startsWith("/web")) return "web";
   if (pathname.startsWith("/javascript")) return "javascript";
+  if (pathname.startsWith("/react")) return "react";
   return "laravel";
 }
 
