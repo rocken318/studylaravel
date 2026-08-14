@@ -5,9 +5,9 @@ const CONTACT_URL = "https://halvision.dev/ja/contact";
 const LINE_URL = "https://lin.ee/xr8meo1l";
 
 export const metadata = {
-  title: "はじめてのホームページ作り — パソコン1台とChatGPTだけで",
+  title: "AIと無料でつくる — はじめてのホームページ",
   description:
-    "インストール不要。フォルダを作るところから、ChatGPTにHTMLを作ってもらい、ブラウザで自分のホームページを表示するまでを、中学生でも分かるように1ステップずつ。うまくいかない時の対処つき。",
+    "0円・インストール不要。ChatGPTにHTMLを作ってもらい、トップ画像まで作らせて、最後は世界に無料で公開(デプロイ)するところまでを、中学生でも分かるように1ステップずつ。うまくいかない時の対処つき。",
 };
 
 function Kicker({ children }: { children: React.ReactNode }) {
@@ -79,24 +79,26 @@ export default function FirstWebsitePage() {
         </a>
         <Kicker>いちばんやさしい・ハンズオン</Kicker>
         <h1 className="text-3xl font-bold leading-tight text-ink md:text-4xl">
-          はじめてのホームページ作り
+          AIと無料でつくる
           <br className="hidden sm:block" />
           <span className="text-xl font-bold text-ink-soft md:text-2xl">
-            — パソコン1台とChatGPTだけで
+            — はじめてのホームページ
           </span>
         </h1>
         <p className="mt-4 leading-relaxed text-ink-soft">
-          むずかしいソフトのインストールは一切なし。
-          <strong>フォルダを作るところから、自分のホームページをブラウザに表示するまで</strong>を、
+          むずかしいソフトのインストールは一切なし。お金も<strong>1円もかかりません</strong>。
+          <strong>フォルダを作るところから、ChatGPTにHTMLもトップ画像も作ってもらい、
+          最後は世界に無料で公開(デプロイ)するまで</strong>を、
           1ステップずつ、中学生でも分かるように進めます。
-          コードは自分で書きません。<strong>ChatGPTに作ってもらいます</strong>。
-          いっしょにやれば、今日中に「自分のページ」が持てます。
+          コードは自分で書きません。<strong>ぜんぶChatGPTに作ってもらいます</strong>。
+          いっしょにやれば、今日中に「世界に出した自分のページ」が持てます。
         </p>
         <div className="mt-5 rounded-2xl border border-base-border bg-base-surface p-4 shadow-sm">
           <p className="text-sm font-bold text-ink">🎯 今日のゴール</p>
           <p className="mt-1 text-sm leading-relaxed text-ink-soft">
-            自分のパソコンの中に、お店の紹介や自己紹介の
-            <strong>1ページのホームページ</strong>を作って、ブラウザで表示できるようになる。
+            お店の紹介や自己紹介の<strong>1ページのホームページ</strong>を、
+            <strong>トップ画像つき</strong>で作り、
+            <strong>だれでも見られるURL(インターネット上の住所)</strong>として無料で公開できるようになる。
           </p>
         </div>
       </header>
@@ -282,6 +284,102 @@ export default function FirstWebsitePage() {
         </Note>
       </Step>
 
+      <Step n={7} title="トップに「顔」になる画像を入れる(画像もChatGPTが作る)">
+        <p className="leading-relaxed text-ink-soft">
+          文字だけでも立派なページですが、いちばん上に大きな画像が1枚あるだけで、
+          ぐっと「本物」っぽくなります。じつは<strong>その画像も、ChatGPTに無料で作ってもらえます</strong>。
+        </p>
+        <p className="mt-3 font-bold text-ink">① ChatGPTに画像をお願いする</p>
+        <p className="leading-relaxed text-ink-soft">
+          ChatGPTのメッセージ欄に、こんなふうに頼んでみてください。
+        </p>
+        <Code>{`次の雰囲気の横長の画像を1枚作ってください。
+【何の画像】___（例：あたたかい雰囲気の小さなカフェの店内）
+【色】___（例：ベージュとブラウンのやさしい色）
+【文字】画像の中に文字は入れないで
+【形】横長（ホームページの一番上に置くヘッダー用）`}</Code>
+        <p className="leading-relaxed text-ink-soft">
+          画像ができたら、画像の上で<strong>右クリック→「名前を付けて画像を保存」</strong>
+          (スマホなら長押しで保存)。保存先は、さっきの{" "}
+          <code className="rounded bg-base-bg px-1 font-mono text-xs">my-website</code>{" "}
+          フォルダにして、名前を{" "}
+          <code className="rounded bg-base-bg px-1 font-mono text-xs">hero.png</code>{" "}
+          にしましょう(index.html と<strong>同じフォルダ</strong>に入れるのが大事)。
+        </p>
+        <Note title="画像が作れない・作りたくない時は">
+          無料の写真サイト(<strong>「フリー素材 写真」</strong>で検索。Unsplash や Pexels など)
+          から好きな写真をダウンロードしてもOK。それを同じように{" "}
+          <code className="rounded bg-base-bg px-1 font-mono text-xs">hero.png</code>{" "}
+          (または <code className="rounded bg-base-bg px-1 font-mono text-xs">hero.jpg</code>)
+          という名前で my-website フォルダに入れてください。
+        </Note>
+        <p className="mt-3 font-bold text-ink">② ChatGPTにHTMLへ画像を入れてもらう</p>
+        <p className="leading-relaxed text-ink-soft">
+          今のあなたのHTMLコードをまるごとコピーして、ChatGPTにこう頼みます。
+        </p>
+        <Code>{`このHTMLの一番上に、hero.png という画像を大きく表示してください。
+画像は index.html と同じフォルダにあります。
+横幅いっぱいに、きれいに表示されるようにしてください。
+（ここに今のHTMLコードを貼り付ける）`}</Code>
+        <p className="leading-relaxed text-ink-soft">
+          返ってきたコードを、また index.html に貼り付けて保存→更新(F5 / ⌘R)。
+          ページの一番上に、あなたの画像が出てくれば大成功です。
+        </p>
+        <Check>ページの上に画像が表示されればOK！画像が出ない時は、名前が hero.png で、
+          index.html と同じフォルダに入っているか確認してみて。</Check>
+      </Step>
+
+      <Step n={8} title="もっと自由にアレンジする(全部タダで盛れる)">
+        <p className="leading-relaxed text-ink-soft">
+          ここまで来たら、あとは「こうしたい」を言葉にするだけ。
+          追加のソフトもお金も要りません。<strong>ぜんぶChatGPTに頼めます</strong>。
+          気になったものを1つずつ試してみましょう。
+        </p>
+        <ul className="my-3 space-y-1.5 text-sm text-ink-soft">
+          <li>・「一番上に、お店の名前とキャッチコピーを画像の上に重ねて表示して」</li>
+          <li>・「『予約はこちら』みたいな目立つボタンを付けて」</li>
+          <li>・「メニューや料金を、きれいな表(カード)にして並べて」</li>
+          <li>・「一番下に、住所・電話番号・営業時間のフッターを付けて」</li>
+          <li>・「スクロールすると、ふわっと出てくる動きを付けて」</li>
+          <li>・「スマホで見たときに、もっと見やすく整えて」</li>
+        </ul>
+        <p className="leading-relaxed text-ink-soft">
+          返ってきたコードを貼り付けて保存→更新、のくり返し。
+          <strong>「言葉で頼む→AIが直す」だけで、どんどん本格的になっていきます。</strong>
+        </p>
+        <Note title="迷ったらこの一言">
+          「このページ全体を、プロが作ったみたいに、もっとおしゃれで見やすくして」——
+          ざっくりお願いするだけでも、ChatGPTがまとめて整えてくれます。
+        </Note>
+      </Step>
+
+      <Step n={9} title="世界に無料で公開する(デプロイ)">
+        <p className="leading-relaxed text-ink-soft">
+          いよいよ最後。今はパソコンの中にしかないあなたのページを、
+          <strong>だれでもURLで見られる状態</strong>にします。これを「デプロイ(公開)」と言います。
+          いちばんかんたんで<strong>無料</strong>な方法を紹介します。
+        </p>
+        <p className="mt-3 font-bold text-ink">Netlify Drop（ネットリファイ・ドロップ）を使う</p>
+        <ul className="my-2 space-y-1 text-sm text-ink-soft">
+          <li>1. ブラウザで <code className="rounded bg-base-bg px-1 font-mono text-xs">app.netlify.com/drop</code> を開く</li>
+          <li>2. デスクトップの <strong>my-website フォルダ</strong>を、そのページの点線の枠の中に<strong>ドラッグ＆ドロップ</strong>(つかんで落とす)する</li>
+          <li>3. しばらく待つと、<strong>あなたのページのURL</strong>が表示される 🎉</li>
+        </ul>
+        <p className="leading-relaxed text-ink-soft">
+          そのURLを、スマホや友だちに送ってみてください。
+          <strong>あなたが作ったページが、世界のどこからでも見られます。</strong>
+          これで、あなたは「作れる人」から<strong>「公開できる人」</strong>になりました。
+        </p>
+        <Note title="URLをずっと残したい・名前を変えたい時">
+          無料アカウント(メールだけで登録)を作ると、そのページをずっと残せて、
+          URLの名前も少し変えられます。登録も、もちろん無料。
+          ファイルを直したくなったら、また同じ my-website フォルダを
+          Netlify Drop に落とし直すだけで、公開中のページが新しくなります。
+        </Note>
+        <Check>もらったURLをブラウザに入れて、あなたのページが表示されればOK！
+          スマホから開ければ、まちがいなく「世界に公開」できています。🌏</Check>
+      </Step>
+
       {/* うまくいかない時 */}
       <section className="mb-10">
         <Kicker>つまずいたら</Kicker>
@@ -291,6 +389,8 @@ export default function FirstWebsitePage() {
             ["画面が真っ白", "index.html を開いているか確認。ファイル名が index.html.txt になっていないかも見てみて(なっていたら .txt を消す)。"],
             ["文字が □□□ に化ける", "1行目あたりに <meta charset=\"UTF-8\"> があるか確認。無ければChatGPTに「文字化けするので直して」と頼む。"],
             ["変更が反映されない", "保存し忘れかも。保存してから、ブラウザを更新(F5 / ⌘R)。それでもダメなら一度ブラウザで開き直す。"],
+            ["画像が表示されない（枠だけ出る）", "画像の名前が hero.png になっているか、index.html と同じフォルダに入っているかを確認。ちがう名前なら、その名前をChatGPTに伝えて直してもらう。"],
+            ["公開したページで画像だけ出ない", "デプロイ(Netlify Drop)に、画像ごと my-website フォルダ全体を落とせているか確認。index.html 1つだけをドロップすると画像が付いてきません。"],
           ].map(([q, a]) => (
             <div key={q} className="rounded-2xl border border-base-border bg-base-surface p-4 shadow-sm">
               <p className="font-bold text-ink">❓ {q}</p>
@@ -325,18 +425,49 @@ export default function FirstWebsitePage() {
         </div>
       </section>
 
+      {/* 全自動の種明かし */}
+      <section className="mb-8">
+        <div className="rounded-3xl border border-accent/30 bg-accent-bg p-6 md:p-8">
+          <p className="text-sm font-bold text-accent">じつは、種明かし</p>
+          <h2 className="mt-1 text-xl font-bold text-ink md:text-2xl">
+            これ、ぜんぶ「全自動」でもできるんです
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+            ここまでは、あなたが手でコピペして進めました。でも——
+            <strong>HTMLを作る・画像を用意する・アレンジする・公開(デプロイ)する</strong>という
+            一連の流れは、じつは<strong>人が手を動かさなくても、AIが自動でまとめてやる</strong>ことができます。
+            「こういうサイトが欲しい」と一言伝えるだけで、
+            作成から公開まで裏側で全部走る——そんな仕組みが、いまは本当に作れます。
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+            実際、この学習サイトも、そうした<strong>AIによる自動化の仕組み</strong>を使って運営しています。
+            「自分の仕事にも、こういう“AIが勝手に作って公開してくれる環境”を用意したい」——
+            そう思ったら、<strong>その環境づくりごと、HaLVision(ハルビジョン)にご相談ください。</strong>
+          </p>
+          <div className="mt-5">
+            <a
+              href={CONTACT_URL}
+              className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-accent/90"
+            >
+              全自動の環境づくりを相談する →
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* 依頼への導線(funnel) */}
       <section id="pro" className="mb-8">
         <div className="rounded-3xl border border-brand/30 bg-brand-bg p-6 md:p-8">
           <p className="text-sm font-bold text-brand">ここから先は、プロの出番</p>
           <h2 className="mt-1 text-xl font-bold text-ink md:text-2xl">
-            「本気のホームページ」にしたくなったら
+            もっとこだわりたくなったら
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-            自分で作れたのは、すごいことです。でも——
+            自分で、しかも無料でここまで作れたのは、すごいことです。でも——
             <strong>集客できるデザイン</strong>、スマホでの美しい見え方、
             予約・問い合わせフォーム、検索で見つけてもらう工夫(SEO)、
-            ロゴや写真の作り込み……ここから先は、専門の知識と手間がかかる領域です。
+            ロゴや写真の作り込み、独自ドメイン……
+            「もっとこだわりたい」の先は、専門の知識と手間がかかる領域です。
           </p>
           <p className="mt-3 text-sm leading-relaxed text-ink-soft">
             「自分のお店・事業の“顔”になる本格的なサイトが欲しい」——そう思ったら、
