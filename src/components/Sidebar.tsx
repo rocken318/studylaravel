@@ -8,9 +8,16 @@ import { pythonCurriculum } from "@/data/python/curriculum";
 import { tsCurriculum } from "@/data/typescript/curriculum";
 import { basicsCurriculum } from "@/data/basics/curriculum";
 import { webCurriculum } from "@/data/web/curriculum";
+import { jsCurriculum } from "@/data/javascript/curriculum";
 import { useProgress } from "./ProgressProvider";
 
-type CourseKey = "basics" | "laravel" | "python" | "typescript" | "web";
+type CourseKey =
+  | "basics"
+  | "laravel"
+  | "python"
+  | "typescript"
+  | "web"
+  | "javascript";
 
 interface Course {
   key: CourseKey;
@@ -116,6 +123,22 @@ const courses: Record<CourseKey, Course> = {
       { href: "/web/glossary", label: "HTML/CSS用語集", icon: "📘" },
     ],
   },
+  javascript: {
+    key: "javascript",
+    label: "JavaScript",
+    home: "/javascript",
+    badge: "JS",
+    title: "初めてのJavaScript",
+    subtitle: "Webページに命を吹き込む",
+    badgeClass: "bg-brand",
+    days: jsCurriculum,
+    dayHref: (s) => `/javascript/${s}`,
+    lessonHref: (d, l) => `/javascript/${d}/${l}`,
+    nav: [
+      { href: "/javascript", label: "コースホーム", icon: "🏠" },
+      { href: "/javascript/glossary", label: "JavaScript用語集", icon: "📘" },
+    ],
+  },
 };
 
 function activeCourseKey(pathname: string): CourseKey {
@@ -124,6 +147,7 @@ function activeCourseKey(pathname: string): CourseKey {
   if (pathname.startsWith("/typescript")) return "typescript";
   if (pathname.startsWith("/python")) return "python";
   if (pathname.startsWith("/web")) return "web";
+  if (pathname.startsWith("/javascript")) return "javascript";
   return "laravel";
 }
 
@@ -135,9 +159,9 @@ function CourseSwitcher({
   onNavigate?: () => void;
 }) {
   const base =
-    "flex-1 rounded-lg px-2 py-1.5 text-center text-xs font-bold transition-colors";
+    "shrink-0 whitespace-nowrap rounded-lg px-3 py-1.5 text-center text-xs font-bold transition-colors";
   return (
-    <div className="flex gap-1 rounded-xl bg-base-bg p-1">
+    <div className="thin-scroll flex gap-1 overflow-x-auto rounded-xl bg-base-bg p-1">
       {(Object.values(courses) as Course[]).map((c) => {
         const active = c.key === activeKey;
         return (

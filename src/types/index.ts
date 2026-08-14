@@ -172,7 +172,8 @@ export type GlossaryCategory =
   | "typescript" // TypeScript型・言語
   | "react" // React/Next.js
   | "basics" // 言語共通の基礎
-  | "web"; // HTML/CSS
+  | "web" // HTML/CSS
+  | "javascript"; // JavaScript文法・基礎
 
 export interface GlossaryTerm {
   /** [[term-slug]] で参照されるキー。例: "n-plus-one" */

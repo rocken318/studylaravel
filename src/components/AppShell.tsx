@@ -14,6 +14,8 @@ export function AppShell({ children }: { children: ReactNode }) {
     ? { badge: "Py", title: "初めてのPython", brandy: true }
     : pathname.startsWith("/web")
     ? { badge: "Web", title: "初めてのHTML/CSS", brandy: true }
+    : pathname.startsWith("/javascript")
+    ? { badge: "JS", title: "初めてのJavaScript", brandy: true }
     : { badge: "L", title: "Laravel Bootcamp", brandy: false };
   const [drawerOpen, setDrawerOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
