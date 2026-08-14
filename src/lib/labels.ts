@@ -36,6 +36,7 @@ export const glossaryCategoryLabels: Record<GlossaryCategory, string> = {
   web: "HTML/CSS",
   javascript: "JavaScript",
   git: "Git・バージョン管理",
+  sql: "SQL・データベース",
 };
 
 export const glossaryCategoryOrder: GlossaryCategory[] = [
@@ -66,6 +67,9 @@ export const reactGlossaryCategoryOrder: GlossaryCategory[] = ["react"];
 
 /** Gitコースの用語集で使うカテゴリ順 */
 export const gitGlossaryCategoryOrder: GlossaryCategory[] = ["git"];
+
+/** SQLコースの用語集で使うカテゴリ順 */
+export const sqlGlossaryCategoryOrder: GlossaryCategory[] = ["sql"];
 
 export const calloutMeta: Record<
   CalloutVariant,

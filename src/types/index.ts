@@ -174,7 +174,8 @@ export type GlossaryCategory =
   | "basics" // 言語共通の基礎
   | "web" // HTML/CSS
   | "javascript" // JavaScript文法・基礎
-  | "git"; // Git・バージョン管理
+  | "git" // Git・バージョン管理
+  | "sql"; // SQL・データベース
 
 export interface GlossaryTerm {
   /** [[term-slug]] で参照されるキー。例: "n-plus-one" */

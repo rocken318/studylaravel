@@ -11,6 +11,7 @@ import { webCurriculum } from "@/data/web/curriculum";
 import { jsCurriculum } from "@/data/javascript/curriculum";
 import { reactCurriculum } from "@/data/react/curriculum";
 import { gitCurriculum } from "@/data/git/curriculum";
+import { sqlCurriculum } from "@/data/sql/curriculum";
 import { useProgress } from "./ProgressProvider";
 
 type CourseKey =
@@ -21,7 +22,8 @@ type CourseKey =
   | "web"
   | "javascript"
   | "react"
-  | "git";
+  | "git"
+  | "sql";
 
 interface Course {
   key: CourseKey;
@@ -179,6 +181,22 @@ const courses: Record<CourseKey, Course> = {
       { href: "/git/glossary", label: "Git用語集", icon: "📘" },
     ],
   },
+  sql: {
+    key: "sql",
+    label: "SQL",
+    home: "/sql",
+    badge: "SQL",
+    title: "初めてのSQL",
+    subtitle: "データと会話する",
+    badgeClass: "bg-brand",
+    days: sqlCurriculum,
+    dayHref: (s) => `/sql/${s}`,
+    lessonHref: (d, l) => `/sql/${d}/${l}`,
+    nav: [
+      { href: "/sql", label: "コースホーム", icon: "🏠" },
+      { href: "/sql/glossary", label: "SQL用語集", icon: "📘" },
+    ],
+  },
 };
 
 function activeCourseKey(pathname: string): CourseKey {
@@ -188,6 +206,7 @@ function activeCourseKey(pathname: string): CourseKey {
   if (pathname.startsWith("/ai-guide")) return "basics";
   if (pathname.startsWith("/errors")) return "basics";
   if (pathname.startsWith("/http")) return "basics";
+  if (pathname.startsWith("/portfolio")) return "basics";
   if (pathname.startsWith("/typescript")) return "typescript";
   if (pathname.startsWith("/python")) return "python";
   if (pathname.startsWith("/web")) return "web";
@@ -195,6 +214,7 @@ function activeCourseKey(pathname: string): CourseKey {
   if (pathname.startsWith("/react")) return "react";
   if (pathname.startsWith("/git")) return "git";
   if (pathname.startsWith("/terminal")) return "git";
+  if (pathname.startsWith("/sql")) return "sql";
   return "laravel";
 }
 

@@ -12,7 +12,8 @@ export function AppShell({ children }: { children: ReactNode }) {
     pathname.startsWith("/languages") ||
     pathname.startsWith("/ai-guide") ||
     pathname.startsWith("/errors") ||
-    pathname.startsWith("/http")
+    pathname.startsWith("/http") ||
+    pathname.startsWith("/portfolio")
     ? { badge: "基", title: "バイブコーディングの土台", brandy: true }
     : pathname.startsWith("/typescript")
     ? { badge: "TS", title: "初めてのTypeScript", brandy: true }
@@ -26,6 +27,8 @@ export function AppShell({ children }: { children: ReactNode }) {
     ? { badge: "R", title: "初めてのReact", brandy: true }
     : pathname.startsWith("/git") || pathname.startsWith("/terminal")
     ? { badge: "Git", title: "初めてのGit", brandy: true }
+    : pathname.startsWith("/sql")
+    ? { badge: "SQL", title: "初めてのSQL", brandy: true }
     : { badge: "L", title: "Laravel Bootcamp", brandy: false };
   const [drawerOpen, setDrawerOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
