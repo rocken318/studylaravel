@@ -13,7 +13,8 @@ export function AppShell({ children }: { children: ReactNode }) {
     pathname.startsWith("/ai-guide") ||
     pathname.startsWith("/errors") ||
     pathname.startsWith("/http") ||
-    pathname.startsWith("/portfolio")
+    pathname.startsWith("/portfolio") ||
+    pathname.startsWith("/first-website")
     ? { badge: "基", title: "バイブコーディングの土台", brandy: true }
     : pathname.startsWith("/typescript")
     ? { badge: "TS", title: "初めてのTypeScript", brandy: true }
