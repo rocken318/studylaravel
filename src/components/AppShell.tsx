@@ -9,7 +9,9 @@ export function AppShell({ children }: { children: ReactNode }) {
   const course =
     pathname.startsWith("/basics") ||
     pathname.startsWith("/vibe") ||
-    pathname.startsWith("/languages")
+    pathname.startsWith("/languages") ||
+    pathname.startsWith("/ai-guide") ||
+    pathname.startsWith("/errors")
     ? { badge: "基", title: "バイブコーディングの土台", brandy: true }
     : pathname.startsWith("/typescript")
     ? { badge: "TS", title: "初めてのTypeScript", brandy: true }
