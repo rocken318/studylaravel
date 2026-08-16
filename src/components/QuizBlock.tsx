@@ -1,10 +1,35 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Question, ChoiceQuestion, FreeQuestion } from "@/types";
 import { useProgress } from "./ProgressProvider";
 import { RichText } from "./RichText";
 import { AskAIButton } from "./AskAIButton";
+
+// 選択肢の正解位置が偏る(元データは正解がほぼ常に2番目)問題を避けるため、
+// 設問idをシードに選択肢の表示順を決定論的にシャッフルする。
+// 同じ設問なら毎回同じ並び(再描画・リロードでもブレない)。正解判定・保存は
+// 元インデックスで行うので、並び替えても正誤・進捗は不変。
+function shuffledOrder(id: string, n: number): number[] {
+  let h = 2166136261;
+  for (let i = 0; i < id.length; i++) {
+    h ^= id.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  const rand = () => {
+    h += 0x6d2b79f5;
+    let t = h;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  const order = Array.from({ length: n }, (_, i) => i);
+  for (let i = n - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [order[i], order[j]] = [order[j], order[i]];
+  }
+  return order;
+}
 
 export function QuizSection({ questions }: { questions: Question[] }) {
   if (questions.length === 0) return null;
@@ -51,6 +76,11 @@ function ChoiceQuiz({ question }: { question: ChoiceQuestion }) {
   // hydrated=false の初回マウント時は quiz={} なので saved を評価できない。
   // hydrated 後に localStorage 由来の保存値へ同期する。
   const [selected, setSelected] = useState<number | null>(null);
+  // 表示順(元インデックスの並び)。設問ごとに固定。
+  const order = useMemo(
+    () => shuffledOrder(question.id, question.choices.length),
+    [question.id, question.choices.length],
+  );
 
   useEffect(() => {
     if (!hydrated) return;
@@ -92,9 +122,10 @@ function ChoiceQuiz({ question }: { question: ChoiceQuestion }) {
   return (
     <div>
       <div className="space-y-2">
-        {question.choices.map((choice, i) => {
-          const isCorrect = i === question.answerIndex;
-          const isChosen = i === selected;
+        {order.map((orig, d) => {
+          const choice = question.choices[orig];
+          const isCorrect = orig === question.answerIndex;
+          const isChosen = orig === selected;
           let cls =
             "border-base-border bg-base-bg hover:border-brand hover:bg-brand-bg";
           if (answered) {
@@ -108,15 +139,15 @@ function ChoiceQuiz({ question }: { question: ChoiceQuestion }) {
           }
           return (
             <button
-              key={i}
-              onClick={() => handleSelect(i)}
+              key={orig}
+              onClick={() => handleSelect(orig)}
               disabled={answered}
               className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left text-sm transition-colors ${cls} ${
                 answered ? "cursor-default" : "cursor-pointer"
               }`}
             >
               <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-current text-xs text-ink-faint">
-                {String.fromCharCode(65 + i)}
+                {String.fromCharCode(65 + d)}
               </span>
               <span className="text-ink-soft">{choice}</span>
               {answered && isCorrect && (
