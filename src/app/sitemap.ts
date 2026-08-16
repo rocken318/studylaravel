@@ -42,6 +42,7 @@ const LARAVEL_EXTRA = [
   "/laravel-map",
   "/glossary",
   "/interview",
+  "/laravel-interview",
   "/casestudy",
   "/review",
   "/cheatsheet",
