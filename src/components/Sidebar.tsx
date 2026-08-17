@@ -42,6 +42,7 @@ interface Course {
 const laravelNav = [
   { href: "/", label: "ダッシュボード", icon: "🏠" },
   { href: "/laravel-map", label: "全体マップ・用語と構造", icon: "🗺️" },
+  { href: "/request-lifecycle", label: "リクエストライフサイクル", icon: "🔄" },
   { href: "/interview", label: "面接想定問答集", icon: "🎤" },
   { href: "/laravel-interview", label: "面接突破 一覧表", icon: "📋" },
   { href: "/team-development", label: "チーム開発で大事なこと", icon: "🤝" },

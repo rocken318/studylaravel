@@ -40,6 +40,7 @@ const STANDALONE = [
 // Laravelコース(ルートが "/"、レッスンは /curriculum 配下)
 const LARAVEL_EXTRA = [
   "/laravel-map",
+  "/request-lifecycle",
   "/glossary",
   "/interview",
   "/laravel-interview",
