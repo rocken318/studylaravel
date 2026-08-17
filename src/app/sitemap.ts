@@ -41,6 +41,9 @@ const STANDALONE = [
 const LARAVEL_EXTRA = [
   "/laravel-map",
   "/request-lifecycle",
+  "/eloquent-relations",
+  "/auth-flow",
+  "/deployment-guide",
   "/glossary",
   "/interview",
   "/laravel-interview",
