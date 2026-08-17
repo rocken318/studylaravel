@@ -48,6 +48,7 @@ const laravelNav = [
   { href: "/casestudy", label: "実例で読み解く", icon: "🔍" },
   { href: "/glossary", label: "実務用語集", icon: "📘" },
   { href: "/review", label: "復習モード", icon: "🔁" },
+  { href: "/writing-questions", label: "記述式問題まとめ", icon: "✍️" },
   { href: "/cheatsheet", label: "直前チェックリスト", icon: "📝" },
   { href: "/settings", label: "設定・バックアップ", icon: "⚙️" },
 ];

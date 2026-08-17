@@ -35,6 +35,16 @@ export default function ReviewPage() {
           理解度チェックで間違えた問題、記述式で「あやしい」と自己採点した問題が集まります。
           正解できれば、この一覧から消えていきます。
         </p>
+        <p className="mt-3 text-sm text-ink-soft">
+          記述式(自分の言葉で説明する)問題だけをコース横断でまとめて復習したいときは
+          <Link
+            href="/writing-questions"
+            className="text-brand underline hover:text-accent"
+          >
+            記述式問題まとめ
+          </Link>
+          へ。
+        </p>
       </header>
 
       {!hydrated ? (

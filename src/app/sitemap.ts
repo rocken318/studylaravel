@@ -46,6 +46,7 @@ const LARAVEL_EXTRA = [
   "/team-development",
   "/casestudy",
   "/review",
+  "/writing-questions",
   "/cheatsheet",
   "/settings",
 ];
