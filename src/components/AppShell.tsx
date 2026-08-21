@@ -30,7 +30,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     ? { badge: "Git", title: "初めてのGit", brandy: true }
     : pathname.startsWith("/sql")
     ? { badge: "SQL", title: "初めてのSQL", brandy: true }
-    : { badge: "L", title: "Laravel Bootcamp", brandy: false };
+    : { badge: "L", title: "初めてのLaravel", brandy: false };
   const [drawerOpen, setDrawerOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
   const openButtonRef = useRef<HTMLButtonElement>(null);

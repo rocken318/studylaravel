@@ -124,11 +124,11 @@ function Section({ section }: { section: CaseSection }) {
         </div>
       )}
 
-      {/* ③ 面接ではこう言う */}
+      {/* ③ 自分の言葉で説明するなら */}
       <div className="mt-5 rounded-xl border border-accent/30 bg-accent-bg p-4">
         <p className="mb-1 flex items-center gap-1.5 text-sm font-semibold text-accent">
           <span aria-hidden>🎤</span>
-          面接ではこう言う
+          自分の言葉で説明するなら
         </p>
         <p className="text-sm leading-relaxed text-ink-soft">
           {section.interview}

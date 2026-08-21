@@ -175,7 +175,7 @@ function GlossaryDialog({
         <p className="mb-4 leading-relaxed text-ink-soft">{term.meaning}</p>
 
         <div className="rounded-xl border border-accent/30 bg-accent-bg p-4">
-          <p className="mb-1 text-xs font-semibold text-accent">🎤 面接での使い方</p>
+          <p className="mb-1 text-xs font-semibold text-accent">🎤 実務での使い方</p>
           <p className="text-sm leading-relaxed text-ink-soft">
             {term.interviewExample}
           </p>

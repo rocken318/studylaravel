@@ -8,13 +8,13 @@ export default function CheatsheetPage() {
       <header className="mb-6 flex flex-wrap items-start justify-between gap-3 print:mb-3">
         <div>
           <p className="mb-1 text-sm font-medium text-accent print:hidden">
-            面接直前チェックリスト
+            復習前チェックリスト
           </p>
           <h1 className="text-2xl font-bold text-ink md:text-3xl">
-            面接前日の1枚まとめ
+            要点を1枚にまとめた総復習シート
           </h1>
           <p className="mt-2 max-w-reading leading-relaxed text-ink-soft print:text-sm">
-            各項目の「面接ではこう言う」を、口に出して言えるか確認しましょう。
+            各項目の「自分の言葉で説明するなら」を、口に出して言えるか確認しましょう。
             言葉に詰まったらその単元に戻る合図です。
           </p>
         </div>
@@ -54,7 +54,7 @@ export default function CheatsheetPage() {
       </div>
 
       <p className="mt-6 text-center text-xs text-ink-faint print:hidden">
-        深掘りしたい項目は、各Dayのレッスンと面接想定問答集で確認できます。
+        深掘りしたい項目は、各Dayのレッスンと想定Q&A集で確認できます。
       </p>
     </div>
   );

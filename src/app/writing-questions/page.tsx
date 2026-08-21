@@ -41,7 +41,7 @@ export default function WritingQuestionsPage() {
           全コースの記述式(自分の言葉で説明する)設問を一か所に集めました。全{total}問。
           <strong className="text-ink">まず自分の言葉で答えを考えてから</strong>
           「模範解答を見る」で答え合わせをし、
-          <strong className="text-ink">面接での言い換え例</strong>
+          <strong className="text-ink">自分の言葉での言い換え例</strong>
           と<strong className="text-ink">採点の観点</strong>
           まで確認できます。「あやしい」と自己採点した問題は
           <Link href="/review" className="text-brand underline hover:text-accent">
@@ -115,9 +115,9 @@ export default function WritingQuestionsPage() {
         <Link href="/review" className="text-brand underline hover:text-accent">
           復習モード
         </Link>
-        、面接対策は
+        、理解の定着には
         <Link href="/interview" className="text-brand underline hover:text-accent">
-          面接想定問答集
+          想定Q&A集
         </Link>
         もどうぞ。
       </p>
@@ -201,7 +201,7 @@ function WritingCard({
           </div>
           <div className="rounded-xl border border-accent/30 bg-accent-bg p-4">
             <p className="mb-1 text-xs font-semibold text-accent">
-              🎤 面接での言い換え例
+              🎤 自分の言葉での言い換え例
             </p>
             <p className="text-sm leading-relaxed text-ink-soft">
               <RichText text={question.interviewPhrase} />

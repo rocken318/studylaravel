@@ -146,12 +146,12 @@ export default function TeamDevelopmentPage() {
         <a href="/laravel-map" className="text-brand underline hover:text-accent">
           全体マップ
         </a>
-        、面接対策は
+        、実務Q&Aは
         <a
           href="/laravel-interview"
           className="text-brand underline hover:text-accent"
         >
-          面接突破 一覧表
+          実務Q&A 一覧表
         </a>
         、用語は
         <a href="/glossary" className="text-brand underline hover:text-accent">

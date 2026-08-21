@@ -111,7 +111,7 @@ export default function DashboardPage() {
   return (
     <div className="mx-auto max-w-4xl">
       <header className="mb-8">
-        <p className="mb-1 text-sm font-medium text-accent">Laravel Bootcamp</p>
+        <p className="mb-1 text-sm font-medium text-accent">初めてのLaravel</p>
         <h1 className="text-2xl font-bold text-ink md:text-3xl">
           7日間で「設計を説明できる」状態になる
         </h1>
@@ -141,7 +141,7 @@ export default function DashboardPage() {
           sub={`${hydrated ? quizStats.answered : 0} 問回答`}
         />
         <StatCard
-          label="面接カード"
+          label="Q&Aカード"
           value={`${hydrated ? masteredCount : 0}`}
           unit="枚"
           sub={`覚えた / 記述${hydrated ? answeredInterview : 0}件`}
@@ -187,7 +187,7 @@ export default function DashboardPage() {
             </>
           ) : (
             <p className="text-ink-soft">
-              全レッスン完了です。面接想定問答集と復習モードで仕上げましょう。
+              全レッスン完了です。想定Q&Aと復習モードで仕上げましょう。
             </p>
           )}
         </section>

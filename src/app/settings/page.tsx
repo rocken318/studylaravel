@@ -54,7 +54,7 @@ export default function SettingsPage() {
 
   const handleBackup = () => {
     download(
-      `laravel-bootcamp-backup-${dateStamp()}.json`,
+      `laravel-learning-backup-${dateStamp()}.json`,
       exportData(),
       "application/json"
     );
@@ -62,7 +62,7 @@ export default function SettingsPage() {
 
   const handleAnswersMarkdown = () => {
     const lines: string[] = [
-      "# 面接想定問答 — 自分の回答",
+      "# 想定Q&A — 自分の回答",
       "",
       `書き出し日: ${new Date().toLocaleString("ja-JP")}`,
       "",
@@ -91,7 +91,7 @@ export default function SettingsPage() {
       lines.push("_まだ回答が保存されていません。_");
     }
     download(
-      `面接回答-${dateStamp()}.md`,
+      `想定Q&A回答-${dateStamp()}.md`,
       lines.join("\n"),
       "text/markdown;charset=utf-8"
     );
@@ -166,7 +166,7 @@ export default function SettingsPage() {
         <h2 className="mb-1 font-bold text-ink">バックアップを保存</h2>
         <p className="mb-4 text-sm leading-relaxed text-ink-soft">
           全データをJSONで書き出します。別のブラウザや端末に移すとき、また復元用に使えます。
-          面接の回答だけを読みやすいMarkdownで書き出すこともできます。
+          想定Q&Aの回答だけを読みやすいMarkdownで書き出すこともできます。
         </p>
         <div className="flex flex-wrap gap-2">
           <button
@@ -179,7 +179,7 @@ export default function SettingsPage() {
             onClick={handleAnswersMarkdown}
             className="rounded-lg border border-base-border px-4 py-2 text-sm font-medium text-ink-soft transition-colors hover:border-brand hover:text-brand"
           >
-            面接の回答を書き出す(Markdown)
+            想定Q&Aの回答を書き出す(Markdown)
           </button>
         </div>
       </section>
@@ -218,7 +218,7 @@ export default function SettingsPage() {
       <section className="rounded-2xl border border-bad/30 bg-bad-bg p-6">
         <h2 className="mb-1 font-bold text-bad">進捗をリセット</h2>
         <p className="mb-4 text-sm leading-relaxed text-ink-soft">
-          完了チェック・クイズの結果・面接の回答・学習日数をすべて削除します。この操作は取り消せません。
+          完了チェック・クイズの結果・想定Q&Aの回答・学習日数をすべて削除します。この操作は取り消せません。
           必要なら先にバックアップを取ってください。
         </p>
         <div className="flex items-center gap-2">

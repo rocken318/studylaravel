@@ -29,7 +29,7 @@ export default function InterviewPage() {
   return (
     <div className="mx-auto max-w-3xl">
       <header className="mb-6">
-        <p className="mb-1 text-sm font-medium text-accent">面接想定問答集</p>
+        <p className="mb-1 text-sm font-medium text-accent">想定Q&A ― 設計を自分の言葉で説明する練習</p>
         <h1 className="text-2xl font-bold text-ink md:text-3xl">
           「なぜ差がつくのか」まで理解する
         </h1>

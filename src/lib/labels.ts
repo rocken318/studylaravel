@@ -81,7 +81,7 @@ export const calloutMeta: Record<
     icon: "🧭",
   },
   interview: {
-    label: "面接ではこう言う",
+    label: "実務ではこう言う",
     className: "border-accent/30 bg-accent-bg",
     icon: "🎤",
   },

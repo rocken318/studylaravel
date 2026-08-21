@@ -18,7 +18,7 @@ export type AiPromptInput =
   | { kind: "glossary"; term: string; meaning: string };
 
 const beginnerPreface =
-  "私はPHPとLaravelをこれから学ぶ初心者で、Laravelを使ったチーム開発の面接を受けます。";
+  "私はPHPとLaravelをこれから学ぶ初心者で、Laravelを使ったチーム開発に取り組んでいます。";
 
 /** 文脈に応じた質問文(プロンプト)を組み立てる */
 export function buildPrompt(input: AiPromptInput): string {
@@ -31,7 +31,7 @@ export function buildPrompt(input: AiPromptInput): string {
         `1) まず身近な例えで直感的に\n` +
         `2) なぜそういう仕組み・設計になっているのか(理由・メリット)\n` +
         `3) ありがちな誤解・アンチパターン\n` +
-        `4) 面接や実務で説明するときの、そのまま話せる言い換え例(60秒程度)\n` +
+        `4) 実務で説明するときの、そのまま話せる言い換え例(60秒程度)\n` +
         `最後に、理解を確かめる質問を1つ出してください。`
       );
     case "free":
@@ -41,25 +41,25 @@ export function buildPrompt(input: AiPromptInput): string {
         `【質問】${input.question}\n\n` +
         `【参考にしている模範解答】${input.modelAnswer}\n\n` +
         `この模範解答のポイントを噛み砕いて解説したうえで、` +
-        `私が面接で自分の言葉として話すための言い換え例を2パターン作ってください。` +
+        `私が自分の言葉として話すための言い換え例を2パターン作ってください。` +
         `専門用語には短い補足をつけてください。`
       );
     case "interview":
       return (
         `${beginnerPreface}\n\n` +
-        `面接カテゴリ「${input.category}」の想定質問です。\n` +
+        `カテゴリ「${input.category}」の想定質問です。\n` +
         `【質問】${input.question}\n\n` +
-        `この質問で面接官が本当に見ているポイントを説明し、` +
+        `この質問でレビュー担当者が本当に見ているポイントを説明し、` +
         `減点されるNG回答と、設計意図まで語れる加点回答を対比で示してください。` +
         `最後に、私が話す想定で60秒の回答例を作ってください。`
       );
     case "glossary":
       return (
         `${beginnerPreface}\n\n` +
-        `「${input.term}」という用語を、面接で説明できるようになりたいです。\n` +
+        `「${input.term}」という用語を、実務で説明できるようになりたいです。\n` +
         `【いまの理解】${input.meaning}\n\n` +
         `この用語を、身近な例えと具体的なLaravelでの使いどころを交えて解説し、` +
-        `面接でそのまま言える一文の言い換え例も作ってください。`
+        `実務でそのまま言える一文の言い換え例も作ってください。`
       );
     default:
       return beginnerPreface;

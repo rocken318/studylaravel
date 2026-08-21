@@ -23,20 +23,20 @@ export default function LaravelInterviewPage() {
     <div className="mx-auto max-w-4xl">
       <header className="mb-8">
         <p className="mb-1 text-sm font-medium text-accent">
-          Laravel 面接突破 一覧表
+          Laravel 実務Q&A 一覧表
         </p>
         <h1 className="text-2xl font-bold text-ink md:text-3xl">
-          面接前に要点だけ復習できる、Q&Aチートシート
+          要点だけサッと復習できる、Q&Aチートシート
         </h1>
         <p className="mt-2 max-w-reading leading-relaxed text-ink-soft">
-          採用面接でよく聞かれる Laravel の質問を、
-          <strong className="text-ink">「質問」「回答のポイント」「面接での一言」</strong>
+          実務でよく問われる Laravel の質問を、
+          <strong className="text-ink">「質問」「回答のポイント」「自分の言葉での一言」</strong>
           の3列で {laravelInterviewTotal} 項目、一覧表にまとめました。
           じっくり深掘りしたいときは
           <a href="/interview" className="text-brand underline hover:text-accent">
-            面接想定問答集
+            想定Q&A集
           </a>
-          へ。ここは<strong className="text-ink">面接直前にサッと目を通す要点シート</strong>として使ってください。
+          へ。ここは<strong className="text-ink">要点をサッと見返す復習シート</strong>として使ってください。
         </p>
       </header>
 
@@ -49,7 +49,7 @@ export default function LaravelInterviewPage() {
             … 押さえるべきキーフレーズ・要点。丸暗記ではなく理解の軸に。
           </li>
           <li>
-            <strong className="text-ink">面接での一言</strong>
+            <strong className="text-ink">自分の言葉での一言</strong>
             … そのまま口に出せる言い換え例。自分の言葉に直すとより自然です。
           </li>
         </ul>
@@ -83,7 +83,7 @@ export default function LaravelInterviewPage() {
                     回答のポイント
                   </th>
                   <th className="w-[32%] px-4 py-3 font-bold">
-                    面接での一言
+                    自分の言葉での一言
                   </th>
                 </tr>
               </thead>
@@ -132,7 +132,7 @@ export default function LaravelInterviewPage() {
                   {row.point}
                 </p>
                 <p className="mb-1 text-xs font-semibold text-accent">
-                  面接での一言
+                  自分の言葉での一言
                 </p>
                 <p className="rounded-xl bg-accent-bg px-3 py-2 text-sm leading-relaxed text-ink-soft">
                   「{row.phrase}」

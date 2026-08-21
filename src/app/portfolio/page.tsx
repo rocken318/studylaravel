@@ -4,7 +4,7 @@ import { BackToTop } from "@/components/BackToTop";
 export const metadata = {
   title: "作った物を「仕事」に変える — ポートフォリオと自己PR",
   description:
-    "学んだあと、どう就職・受注につなげるか。未経験でも評価される作品の選び方、READMEの書き方、「読める・直せる・説明できる」を証明する見せ方、面接での自己PRの型まで。テンプレつきの実践ガイド。",
+    "学んだあと、どう就職・受注につなげるか。未経験でも評価される作品の選び方、READMEの書き方、「読める・直せる・説明できる」を証明する見せ方、実務での自己PRの型まで。テンプレつきの実践ガイド。",
 };
 
 function Kicker({ children }: { children: React.ReactNode }) {

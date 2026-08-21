@@ -14,9 +14,9 @@ export function generateMetadata({
   params: { day: string; lesson: string };
 }) {
   const found = getLesson(params.day, params.lesson);
-  if (!found) return { title: "Laravel Bootcamp" };
+  if (!found) return { title: "初めてのLaravel" };
   return {
-    title: `${found.lesson.title} — Laravel Bootcamp`,
+    title: `${found.lesson.title} — 初めてのLaravel`,
     description: found.lesson.summary,
   };
 }

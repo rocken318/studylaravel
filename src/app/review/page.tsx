@@ -220,7 +220,7 @@ function ReviewFree({ question }: { question: FreeQuestion }) {
           </div>
           <div className="rounded-xl border border-accent/30 bg-accent-bg p-4">
             <p className="mb-1 text-xs font-semibold text-accent">
-              🎤 面接での言い換え例
+              🎤 自分の言葉での言い換え例
             </p>
             <p className="text-sm leading-relaxed text-ink-soft">
               <RichText text={question.interviewPhrase} />

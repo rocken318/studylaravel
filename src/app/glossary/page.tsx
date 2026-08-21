@@ -34,10 +34,10 @@ export default function GlossaryPage() {
       <header className="mb-6">
         <p className="mb-1 text-sm font-medium text-accent">実務用語集</p>
         <h1 className="text-2xl font-bold text-ink md:text-3xl">
-          用語を「面接で使える」状態にする
+          用語を「実務で使える」状態にする
         </h1>
         <p className="mt-2 max-w-reading leading-relaxed text-ink-soft">
-          意味を知っているだけでは面接では足りません。各用語に「面接での使い方」の例文を
+          意味を知っているだけでは実務では足りません。各用語に「実務での使い方」の例文を
           添えています。全 {glossary.length} 語。
         </p>
       </header>
@@ -101,7 +101,7 @@ export default function GlossaryPage() {
               </p>
               <div className="mt-3 rounded-lg border border-accent/30 bg-accent-bg p-3">
                 <p className="mb-0.5 text-xs font-semibold text-accent">
-                  🎤 面接での使い方
+                  🎤 実務での使い方
                 </p>
                 <p className="text-xs leading-relaxed text-ink-soft">
                   {t.interviewExample}

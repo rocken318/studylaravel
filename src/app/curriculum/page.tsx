@@ -2,7 +2,7 @@ import Link from "next/link";
 import { curriculum } from "@/data/curriculum";
 
 export const metadata = {
-  title: "カリキュラム — Laravel Bootcamp",
+  title: "カリキュラム — 初めてのLaravel",
   description: "7日間で学ぶLaravelの設計思想とチーム開発の作法。",
 };
 
@@ -15,7 +15,7 @@ export default function CurriculumIndexPage() {
           7日間の学習ロードマップ
         </h1>
         <p className="mt-2 leading-relaxed text-ink-soft">
-          1日ずつ、設計の「なぜ」を積み上げます。各Dayのゴールは「面接で説明できること」です。
+          1日ずつ、設計の「なぜ」を積み上げます。各Dayのゴールは「実務で説明できること」です。
         </p>
       </header>
 

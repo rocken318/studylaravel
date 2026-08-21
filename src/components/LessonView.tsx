@@ -112,7 +112,7 @@ export function LessonView({ day, lesson }: { day: Day; lesson: Lesson }) {
           >
             <span className="text-xs text-accent">全レッスン修了 →</span>
             <p className="mt-0.5 text-sm font-medium text-ink">
-              面接想定問答集で仕上げる
+              想定Q&A集で仕上げる
             </p>
           </Link>
         )}

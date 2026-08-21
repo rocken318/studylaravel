@@ -5,7 +5,7 @@
 //   /team-development ページ(TeamDevelopmentPage)から読み込んで
 //   テーブル形式で描画する。
 //
-//   ※ /laravel-map(全体像)・/laravel-interview(面接Q&A)・
+//   ※ /laravel-map(全体像)・/laravel-interview(実務Q&A)・
 //     /glossary(用語集)・/interview(想定問答)とは別物。ここは
 //     「チーム開発の実践チェックリスト」という切り口に特化する。
 // =====================================================================

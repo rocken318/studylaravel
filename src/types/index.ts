@@ -34,7 +34,7 @@ export interface CodeBlock {
 /**
  * 補足ボックス。
  * - why      : 「なぜそう設計するのか」の理由
- * - interview: 「面接ではこう言う」という言い換え例
+ * - interview: 「実務ではこう言う」という言い換え例
  * - warn     : 落とし穴・アンチパターンへの注意
  * - info     : 補足知識
  */
@@ -98,7 +98,7 @@ export interface FreeQuestion {
   question: string;
   /** 模範解答 */
   modelAnswer: string;
-  /** 面接での言い換え例 */
+  /** 実務での言い換え例 */
   interviewPhrase: string;
   /** 自己採点の観点(この語に触れられていれば加点、など) */
   keywords?: string[];
@@ -132,7 +132,7 @@ export interface Day {
 }
 
 // ------------------------------------------------------------------
-// 面接想定問答集
+// 想定Q&A集
 // ------------------------------------------------------------------
 
 export type InterviewCategory =
@@ -186,7 +186,7 @@ export interface GlossaryTerm {
   category: GlossaryCategory;
   /** 意味の説明 */
   meaning: string;
-  /** 面接での使い方の例文 */
+  /** 実務での使い方の例文 */
   interviewExample: string;
   /** 関連語のスラッグ */
   related?: string[];

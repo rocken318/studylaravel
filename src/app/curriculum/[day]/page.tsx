@@ -8,9 +8,9 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { day: string } }) {
   const day = getDay(params.day);
-  if (!day) return { title: "Laravel Bootcamp" };
+  if (!day) return { title: "初めてのLaravel" };
   return {
-    title: `Day ${day.day} ${day.title} — Laravel Bootcamp`,
+    title: `Day ${day.day} ${day.title} — 初めてのLaravel`,
     description: day.goal,
   };
 }

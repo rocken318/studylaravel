@@ -37,7 +37,7 @@ export function QuizSection({ questions }: { questions: Question[] }) {
     <section className="mt-12 border-t border-base-border pt-8">
       <h2 className="mb-1 text-lg font-bold text-ink">理解度チェック</h2>
       <p className="mb-6 text-sm text-ink-faint">
-        答えられれば、面接で説明できる状態に一歩近づきます。
+        答えられれば、実務で説明できる状態に一歩近づきます。
       </p>
       <div className="space-y-6">
         {questions.map((q, i) => (
@@ -222,7 +222,7 @@ function FreeQuiz({ question }: { question: FreeQuestion }) {
           </div>
           <div className="rounded-xl border border-accent/30 bg-accent-bg p-4">
             <p className="mb-1 text-xs font-semibold text-accent">
-              🎤 面接での言い換え例
+              🎤 実務での言い換え例
             </p>
             <p className="text-sm leading-relaxed text-ink-soft">
               <RichText text={question.interviewPhrase} />
