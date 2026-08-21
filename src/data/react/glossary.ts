@@ -40,7 +40,7 @@ export const reactGlossary: GlossaryTerm[] = [
     reading: "ジェイエスエックス",
     category: "react",
     meaning:
-      "JavaScriptの中にHTMLのような見た目でUIを書ける記法。実体はJavaScriptで、{ } の中に変数や式を埋め込めます。HTMLと違い class ではなく className を使うなどの差があります。",
+      "「ジェイエスエックス」と読みます。JavaScriptの中にHTMLのような見た目でUIを書ける記法で、実体はJavaScriptです。読むコツは、{ } の中に変数や式を埋め込めること、HTMLと違い class ではなく className を使うこと、<br /> のように自己完結タグは閉じること、そして全体を1つの親要素でまとめること。この4点を押さえると読み解けます。",
     interviewExample:
       "実務でこう説明する: JSXはHTMLに似ていますが実体はJSなので、式の埋め込みや条件分岐を自然に書ける利点を活かしています。",
     related: ["component", "react"],

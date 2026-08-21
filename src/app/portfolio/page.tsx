@@ -269,6 +269,115 @@ React / TypeScript / … など`}</pre>
         </div>
       </section>
 
+      {/* Laravelの案件・仕事の取り方 */}
+      <section className="mb-12" id="laravel-work">
+        <Kicker>ステップアップ・Laravelで仕事を取る</Kicker>
+        <h2 className="text-xl font-bold text-ink md:text-2xl">
+          Laravelの案件・仕事の取り方
+        </h2>
+        <p className="mt-3 leading-relaxed text-ink-soft">
+          「Laravelの案件を取りたい」という声はよく聞きます。ここでは、
+          <strong>Laravelの仕事がどこから来るのか</strong>、未経験からの最初の一歩は
+          どんな形か、そして<strong>小さな作品の積み重ねがどう案件につながるか</strong>を、
+          誇張なく整理します。近道はありませんが、道すじははっきりしています。
+        </p>
+
+        <p className="mt-6 mb-1 text-sm font-semibold text-ink">Laravelの仕事はどこから来るか</p>
+        <ul className="my-4 space-y-2">
+          {[
+            ["🏢", "受託開発（制作会社）", "他社のWebサービスやシステムを請け負って作る。実務未経験者はまずここに就職・アシスタントから入るのが王道。"],
+            ["🚀", "自社サービス開発", "自社のプロダクトを社員として育てる。腰を据えて技術を深めやすい。"],
+            ["💻", "クラウドソーシング", "ランサーズやクラウドワークスなどで小規模な改修・機能追加から。実績と評価を積む入口になる。"],
+            ["🤝", "エージェント（フリーランス）", "実務経験が数年たまってから、案件を紹介してもらう働き方。未経験からいきなりは難しい。"],
+          ].map(([icon, t, d]) => (
+            <li key={t} className="flex gap-3 rounded-xl border border-base-border bg-base-surface p-4 shadow-sm">
+              <span aria-hidden className="text-xl">{icon}</span>
+              <div>
+                <p className="font-bold text-ink">{t}</p>
+                <p className="mt-0.5 text-sm leading-relaxed text-ink-soft">{d}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <Analogy>
+          料理人が最初から一人で店を持てないのと同じです。多くの人は、まず厨房(受託開発や
+          クラウドソーシングの小さな案件)で腕を磨き、実績を積んでから独立や大きな案件へ進みます。
+          Laravelの案件も「小さく入って、積み上げる」のが現実的なルートです。
+        </Analogy>
+
+        <p className="mt-6 mb-1 text-sm font-semibold text-ink">初めての「Laravel案件」はどんな形か</p>
+        <p className="leading-relaxed text-ink-soft">
+          いきなり大規模開発を任されることはまずありません。最初は
+          <strong>既存アプリの小さな改修・機能追加・バグ修正</strong>から始まるのが普通です。
+          「一覧に検索を足す」「フォームに項目を1つ増やす」といった小さな仕事を、
+          規約に沿って安全に直せることが、最初に求められる力です。
+        </p>
+
+        <BadGood
+          bad={{
+            label: "取りにくい進め方",
+            text: "「Laravelを勉強しました」と資格や学習歴だけを並べる。動く作品も、直せる証明もないと、案件を任せる側は不安で頼めない。",
+          }}
+          good={{
+            label: "案件につながる進め方",
+            text: "Laravelで小さなアプリ(メモ・予約・在庫管理など)を作って公開し、READMEで『何を・どう作り・どこで詰まって直したか』を語れる。小さな実績が信頼になり、次の一歩を任せてもらえる。",
+          }}
+        />
+
+        <p className="mt-6 mb-1 text-sm font-semibold text-ink">小さな作品が案件に変わる流れ</p>
+        <ol className="my-5 space-y-2">
+          {[
+            ["① Laravelで小さく作って公開", "CRUD(登録・一覧・編集・削除)ができる小さなアプリを1〜3個。公開URLとGitHubをセットに。"],
+            ["② 「読める・直せる・説明できる」を示す", "AIに任せた部分も中身を読めて、規約に沿って直せて、なぜそうしたか説明できる状態にする。"],
+            ["③ 小さな案件・アシスタントで実績化", "受託のアシスタントやクラウドソーシングの小規模案件で、実務での改修経験を積む。"],
+            ["④ 実績を足がかりに次の案件へ", "こなした仕事が次の依頼や紹介を呼ぶ。ここで初めてエージェント経由の案件も現実的になる。"],
+          ].map(([t, d]) => (
+            <li key={t} className="flex gap-3 rounded-xl border border-base-border bg-base-surface p-4 shadow-sm">
+              <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-bg text-xs font-bold text-brand">
+                {t.slice(0, 2)}
+              </span>
+              <div>
+                <p className="font-bold text-ink">{t.slice(2)}</p>
+                <p className="mt-0.5 text-sm leading-relaxed text-ink-soft">{d}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+
+        <div className="my-5 rounded-xl border border-accent/30 bg-accent-bg p-4">
+          <p className="text-sm leading-relaxed text-ink-soft">
+            ⚠️ <strong>正直な話</strong>：「Laravelを学べば必ず案件が取れる・すぐ稼げる」と
+            約束はできません。ただ、Laravelは受託・自社サービスの現場で今も広く使われており、
+            <strong>小さくても作り切って見せられる人</strong>には、着実にチャンスが回ってきます。
+            派手な近道より、公開できる作品を1つずつ増やすのが結局いちばん早い道です。
+          </p>
+        </div>
+
+        <div className="mt-6 rounded-2xl border-l-4 border-brand bg-brand-bg p-6">
+          <p className="text-sm font-bold text-brand">▶ Laravelの案件に向けた学び</p>
+          <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+            案件で任されるのは「規約に沿って安全に読み・直す」力です。Laravelコースで
+            MVCや設定より規約、Eloquentの基礎を押さえておくと、最初の改修案件に対応しやすくなります。
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {[
+              ["/curriculum", "Laravelコース"],
+              ["/casestudy", "実例で読み解く"],
+              ["/git", "Gitコース"],
+            ].map(([href, label]) => (
+              <Link
+                key={label}
+                href={href}
+                className="rounded-full bg-base-surface px-4 py-2 text-sm font-bold text-brand transition-colors hover:bg-white"
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <BackToTop />
     </article>
   );

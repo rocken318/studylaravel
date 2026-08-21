@@ -24,6 +24,11 @@ export const reactDay1: Day = {
         { type: "paragraph", text: "JSXはJavaScriptなので、HTMLの一部の書き方がそのままは使えません。代表がclassです。classはJavaScriptの予約語(クラス構文で使う)なので、JSXではclassNameと書きます。見た目はほぼ同じでも、名前が違う点に気づけると読み間違いが減ります。" },
         { type: "code", language: "tsx", code: "// HTMLでは class だが、JSXでは className\nfunction Badge() {\n  return <span className=\"badge\">NEW</span>;\n}", caption: "class ではなく className。JSXがJSであることの表れ。" },
         { type: "callout", variant: "warn", title: "閉じタグを忘れない", text: "HTMLでは<br>や<img>を閉じなくても許されましたが、JSXでは必ず閉じる必要があります。<br />や<img src=\"...\" />のように、末尾にスラッシュを付けた『自己完結タグ』にしてください。閉じ忘れはReactでよく出るエラーの筆頭です。AIの生成コードでも稀に抜けるので、読むときに閉じているか確認する癖をつけると安全です。" },
+        { type: "heading", text: "returnで返せるのは「1つのかたまり」だけ" },
+        { type: "paragraph", text: "JSXを読むときにもう1つ知っておきたいのが、関数がreturnで返せるJSXは『必ず1つの親要素にまとまっている』というルールです。並んだ要素をそのまま2つ返すことはできません。だからReactのコードでは、中身を<div>や<>...</>(フラグメント)で1つに包んでいる形がよく出てきます。『いちばん外側を1枚の入れ物で包む』のがJSXの決まり、と読み替えてください。" },
+        { type: "code", language: "tsx", code: "// これはエラー: 親がなく、2つを並べて返している\nfunction Ng() {\n  return (\n    <h1>タイトル</h1>\n    <p>本文</p>\n  );\n}", caption: "トップレベルに要素が2つ並んでいる。JSXはこれを返せない。" },
+        { type: "code", language: "tsx", code: "// OK: <> </> (フラグメント)で1つに包む\nfunction Ok() {\n  return (\n    <>\n      <h1>タイトル</h1>\n      <p>本文</p>\n    </>\n  );\n}", caption: "<> </> は「余計なタグを増やさずに1つにまとめる」ための空の入れ物。" },
+        { type: "callout", variant: "info", title: "JSXの読み方まとめ", text: "JSXを読むときは4点を意識すると迷いません。(1)見た目はHTMLでも実体はJavaScript、(2){}の中はJSの変数や式が入る、(3)classではなくclassNameなどHTMLと少し違う属性名がある、(4)<br />のように自己完結タグは閉じる・全体は1つの親でまとめる。この4つが分かれば、たいていのReactの見た目コードは読み解けます。" },
         { type: "callout", variant: "info", title: "AIにはこう聞く", text: "「このJSXを一行ずつ日本語で説明して。{}の中がJavaScriptとして何をしているか、HTMLと違う書き方(classNameなど)があればそこも教えて」と頼むと、JSXを読む力が早く育ちます。" }
       ],
       questions: [

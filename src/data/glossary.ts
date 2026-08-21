@@ -27,6 +27,17 @@ export const glossary: GlossaryTerm[] = [
     related: ["service-layer", "eloquent", "blade", "fat-controller"],
   },
   {
+    slug: "convention-over-configuration",
+    term: "設定より規約 (Convention over Configuration)",
+    reading: "せっていよりきやく",
+    category: "design",
+    meaning:
+      "フレームワークがあらかじめ決めた「お約束(規約)」に従って命名やフォルダ配置をしておけば、細かい設定を自分で書かなくても各部品が自動でつながる、という設計思想です。Laravelはこの考え方を強く採用しています。たとえば User モデルは自動的に users テーブルに対応づけられ、UserController は app/Http/Controllers に置けばルーティングから見つけてもらえます。規約通りに書くだけで大量の設定ファイルを省け、しかもチームの誰が書いても同じ形になるため、読みやすさと保守性が上がります。逆に規約から外れた命名をすると自動連携が効かず、手動で設定を足す必要が出てきます。",
+    interviewExample:
+      "Laravelは設定より規約の思想で、命名や配置の約束に従えばモデルとテーブルの対応などが自動でつながるため、設定を減らしつつチームで書き方を揃えられると理解しています。",
+    related: ["mvc", "artisan", "eloquent"],
+  },
+  {
     slug: "service-layer",
     term: "サービス層",
     reading: "サービスそう",
